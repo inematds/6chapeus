@@ -81,17 +81,15 @@
     /* Light mode - nav */
     html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
 
-    /* Animação flutuante para chapéus do hero */
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+    /* Rotação sutil do anel do hero */
+    @keyframes slow-spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
-    .hat-float { animation: float 4s ease-in-out infinite; }
-    .hat-float:nth-child(2) { animation-delay: 0.3s; }
-    .hat-float:nth-child(3) { animation-delay: 0.6s; }
-    .hat-float:nth-child(4) { animation-delay: 0.9s; }
-    .hat-float:nth-child(5) { animation-delay: 1.2s; }
-    .hat-float:nth-child(6) { animation-delay: 1.5s; }
+    .hero-ring { animation: slow-spin 60s linear infinite; transform-origin: center; }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-ring { animation: none; }
+    }
   </style>
 </head>
 <body class="bg-dark-900 text-neutral-100 min-h-screen">
@@ -164,86 +162,63 @@
           </div>
         </div>
 
-        <!-- Hero SVG - Os 6 chapéus -->
+        <!-- Hero SVG - Mandala dos 6 chapéus -->
         <div class="flex justify-center">
-          <svg viewBox="0 0 500 400" class="w-full max-w-md">
-            <defs>
-              <linearGradient id="hat-blue-g" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#3b82f6"/>
-                <stop offset="100%" stop-color="#1d4ed8"/>
-              </linearGradient>
-              <linearGradient id="hat-white-g" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#f3f4f6"/>
-                <stop offset="100%" stop-color="#d1d5db"/>
-              </linearGradient>
-              <linearGradient id="hat-yellow-g" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#fbbf24"/>
-                <stop offset="100%" stop-color="#d97706"/>
-              </linearGradient>
-              <linearGradient id="hat-black-g" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#374151"/>
-                <stop offset="100%" stop-color="#111827"/>
-              </linearGradient>
-              <linearGradient id="hat-green-g" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#34d399"/>
-                <stop offset="100%" stop-color="#047857"/>
-              </linearGradient>
-              <linearGradient id="hat-red-g" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#f87171"/>
-                <stop offset="100%" stop-color="#b91c1c"/>
-              </linearGradient>
-            </defs>
-
-            <!-- Chapéu Azul -->
-            <g class="hat-float" transform="translate(80, 80)">
-              <ellipse cx="0" cy="50" rx="55" ry="10" fill="url(#hat-blue-g)" opacity="0.9"/>
-              <path d="M -35 50 Q -35 -5 0 -5 Q 35 -5 35 50 Z" fill="url(#hat-blue-g)"/>
-              <rect x="-35" y="35" width="70" height="5" fill="#1e3a8a"/>
-              <text x="0" y="30" text-anchor="middle" font-size="20" font-weight="bold" fill="white">🎩</text>
-            </g>
-            <!-- Chapéu Branco -->
-            <g class="hat-float" transform="translate(220, 60)">
-              <ellipse cx="0" cy="50" rx="55" ry="10" fill="url(#hat-white-g)" opacity="0.9"/>
-              <path d="M -35 50 Q -35 -5 0 -5 Q 35 -5 35 50 Z" fill="url(#hat-white-g)" stroke="#9ca3af" stroke-width="1"/>
-              <rect x="-35" y="35" width="70" height="5" fill="#9ca3af"/>
-              <text x="0" y="30" text-anchor="middle" font-size="18" fill="#374151">📋</text>
-            </g>
-            <!-- Chapéu Amarelo -->
-            <g class="hat-float" transform="translate(360, 80)">
-              <ellipse cx="0" cy="50" rx="55" ry="10" fill="url(#hat-yellow-g)" opacity="0.9"/>
-              <path d="M -35 50 Q -35 -5 0 -5 Q 35 -5 35 50 Z" fill="url(#hat-yellow-g)"/>
-              <rect x="-35" y="35" width="70" height="5" fill="#92400e"/>
-              <text x="0" y="30" text-anchor="middle" font-size="20" fill="white">☀️</text>
-            </g>
-            <!-- Chapéu Preto -->
-            <g class="hat-float" transform="translate(80, 240)">
-              <ellipse cx="0" cy="50" rx="55" ry="10" fill="url(#hat-black-g)" opacity="0.9"/>
-              <path d="M -35 50 Q -35 -5 0 -5 Q 35 -5 35 50 Z" fill="url(#hat-black-g)"/>
-              <rect x="-35" y="35" width="70" height="5" fill="#030712"/>
-              <text x="0" y="30" text-anchor="middle" font-size="20" fill="white">⚠️</text>
-            </g>
-            <!-- Chapéu Verde -->
-            <g class="hat-float" transform="translate(220, 260)">
-              <ellipse cx="0" cy="50" rx="55" ry="10" fill="url(#hat-green-g)" opacity="0.9"/>
-              <path d="M -35 50 Q -35 -5 0 -5 Q 35 -5 35 50 Z" fill="url(#hat-green-g)"/>
-              <rect x="-35" y="35" width="70" height="5" fill="#064e3b"/>
-              <text x="0" y="30" text-anchor="middle" font-size="20" fill="white">🌱</text>
-            </g>
-            <!-- Chapéu Vermelho -->
-            <g class="hat-float" transform="translate(360, 240)">
-              <ellipse cx="0" cy="50" rx="55" ry="10" fill="url(#hat-red-g)" opacity="0.9"/>
-              <path d="M -35 50 Q -35 -5 0 -5 Q 35 -5 35 50 Z" fill="url(#hat-red-g)"/>
-              <rect x="-35" y="35" width="70" height="5" fill="#7f1d1d"/>
-              <text x="0" y="30" text-anchor="middle" font-size="20" fill="white">❤️</text>
+          <svg viewBox="0 0 400 400" class="w-full max-w-md">
+            <!-- Anel pontilhado com rotação muito lenta -->
+            <g class="hero-ring" style="transform-origin: 200px 200px;">
+              <circle cx="200" cy="200" r="160" fill="none" stroke="#4b5563" stroke-width="1" stroke-dasharray="2,6" opacity="0.35"/>
+              <circle cx="200" cy="200" r="130" fill="none" stroke="#4b5563" stroke-width="1" stroke-dasharray="1,4" opacity="0.2"/>
             </g>
 
-            <!-- Linhas conectoras sutis -->
-            <line x1="135" y1="130" x2="185" y2="110" stroke="#4b5563" stroke-width="1" stroke-dasharray="3,3" opacity="0.3"/>
-            <line x1="255" y1="110" x2="305" y2="130" stroke="#4b5563" stroke-width="1" stroke-dasharray="3,3" opacity="0.3"/>
-            <line x1="395" y1="150" x2="395" y2="210" stroke="#4b5563" stroke-width="1" stroke-dasharray="3,3" opacity="0.3"/>
-            <line x1="305" y1="250" x2="255" y2="290" stroke="#4b5563" stroke-width="1" stroke-dasharray="3,3" opacity="0.3"/>
-            <line x1="185" y1="290" x2="135" y2="250" stroke="#4b5563" stroke-width="1" stroke-dasharray="3,3" opacity="0.3"/>
-            <line x1="105" y1="210" x2="105" y2="150" stroke="#4b5563" stroke-width="1" stroke-dasharray="3,3" opacity="0.3"/>
+            <!-- Centro: 🎩 grande em círculo amarelo -->
+            <circle cx="200" cy="200" r="55" fill="#FACC15" opacity="0.12"/>
+            <circle cx="200" cy="200" r="40" fill="#FACC15" opacity="0.25"/>
+            <text x="200" y="216" text-anchor="middle" font-size="44">🎩</text>
+
+            <!-- 6 chapéus nos vértices de um hexágono (estático, ordem de leitura) -->
+            <!-- Topo: Azul -->
+            <g transform="translate(200, 40)">
+              <circle cx="0" cy="0" r="34" fill="#3b82f6" opacity="0.22" stroke="#3b82f6" stroke-width="1.5"/>
+              <text x="0" y="8" text-anchor="middle" font-size="26">🎩</text>
+              <text x="0" y="-50" text-anchor="middle" font-size="11" font-weight="bold" fill="#60a5fa">AZUL</text>
+              <text x="0" y="58" text-anchor="middle" font-size="9" fill="#93c5fd">organiza</text>
+            </g>
+            <!-- Sup. direita: Branco -->
+            <g transform="translate(338, 120)">
+              <circle cx="0" cy="0" r="34" fill="#e5e7eb" opacity="0.22" stroke="#9ca3af" stroke-width="1.5"/>
+              <text x="0" y="8" text-anchor="middle" font-size="22">📋</text>
+              <text x="0" y="-50" text-anchor="middle" font-size="11" font-weight="bold" fill="#d1d5db">BRANCO</text>
+              <text x="0" y="58" text-anchor="middle" font-size="9" fill="#9ca3af">fatos</text>
+            </g>
+            <!-- Inf. direita: Amarelo -->
+            <g transform="translate(338, 280)">
+              <circle cx="0" cy="0" r="34" fill="#f59e0b" opacity="0.22" stroke="#f59e0b" stroke-width="1.5"/>
+              <text x="0" y="8" text-anchor="middle" font-size="24">☀️</text>
+              <text x="0" y="58" text-anchor="middle" font-size="11" font-weight="bold" fill="#fbbf24">AMARELO</text>
+              <text x="0" y="72" text-anchor="middle" font-size="9" fill="#fde68a">benefícios</text>
+            </g>
+            <!-- Fundo: Preto -->
+            <g transform="translate(200, 360)">
+              <circle cx="0" cy="0" r="34" fill="#374151" opacity="0.4" stroke="#6b7280" stroke-width="1.5"/>
+              <text x="0" y="8" text-anchor="middle" font-size="24">⚠️</text>
+              <text x="0" y="58" text-anchor="middle" font-size="11" font-weight="bold" fill="#d1d5db">PRETO</text>
+              <text x="0" y="72" text-anchor="middle" font-size="9" fill="#9ca3af">riscos</text>
+            </g>
+            <!-- Inf. esquerda: Verde -->
+            <g transform="translate(62, 280)">
+              <circle cx="0" cy="0" r="34" fill="#10b981" opacity="0.22" stroke="#10b981" stroke-width="1.5"/>
+              <text x="0" y="8" text-anchor="middle" font-size="24">🌱</text>
+              <text x="0" y="58" text-anchor="middle" font-size="11" font-weight="bold" fill="#34d399">VERDE</text>
+              <text x="0" y="72" text-anchor="middle" font-size="9" fill="#6ee7b7">ideias</text>
+            </g>
+            <!-- Sup. esquerda: Vermelho -->
+            <g transform="translate(62, 120)">
+              <circle cx="0" cy="0" r="34" fill="#dc2626" opacity="0.22" stroke="#dc2626" stroke-width="1.5"/>
+              <text x="0" y="8" text-anchor="middle" font-size="24">❤️</text>
+              <text x="0" y="-50" text-anchor="middle" font-size="11" font-weight="bold" fill="#f87171">VERMELHO</text>
+              <text x="0" y="58" text-anchor="middle" font-size="9" fill="#fca5a5">intuição</text>
+            </g>
           </svg>
         </div>
       </div>
@@ -421,193 +396,164 @@
       </p>
     </div>
 
-    <!-- Trilha 1 -->
-    <a href="curso/trilha1/index.html" class="group block bg-dark-800 rounded-xl border border-dark-600 overflow-hidden mb-6 hover:border-emerald-500/30 hover:bg-emerald-500/10 transition-all">
-      <div class="bg-gradient-to-br from-emerald-900/30 via-dark-800 to-dark-800 p-8">
-        <div class="grid md:grid-cols-[auto_1fr_auto] gap-6 items-center">
-          <!-- SVG do chapéu Azul (maestro) -->
-          <svg viewBox="0 0 100 100" class="w-20 h-20">
-            <ellipse cx="50" cy="75" rx="35" ry="6" fill="#10b981" opacity="0.3"/>
-            <path d="M 20 75 Q 20 30 50 30 Q 80 30 80 75 Z" fill="#10b981"/>
-            <rect x="20" y="65" width="60" height="4" fill="#047857"/>
-            <circle cx="50" cy="50" r="2" fill="white"/>
+    <div class="grid md:grid-cols-3 gap-6">
+      <!-- Trilha 1 -->
+      <a href="curso/trilha1/index.html" class="group flex flex-col bg-gradient-to-br from-emerald-900/30 via-dark-800 to-dark-800 rounded-xl border border-dark-600 p-6 hover:border-emerald-500/50 hover:bg-emerald-500/10 transition-all">
+        <div class="flex items-center justify-between mb-4">
+          <svg viewBox="0 0 60 60" class="w-14 h-14">
+            <ellipse cx="30" cy="45" rx="22" ry="4" fill="#10b981" opacity="0.3"/>
+            <path d="M 10 45 Q 10 14 30 14 Q 50 14 50 45 Z" fill="#10b981"/>
+            <rect x="10" y="38" width="40" height="3" fill="#047857"/>
           </svg>
-          <div>
-            <span class="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-semibold rounded-full mb-3">
-              TRILHA 1 · INICIANTE
-            </span>
-            <h3 class="text-2xl font-bold mb-2 group-hover:text-emerald-400 transition-colors">
-              📘 O Método
-            </h3>
-            <p class="text-neutral-400 mb-3">
-              Entenda por que o método funciona. Cada chapéu, cada regra, o sistema anti-âncora — com exemplos ilustrados do dia a dia.
-            </p>
-            <div class="flex flex-wrap gap-2 text-xs">
-              <span class="px-2 py-1 bg-dark-700 text-neutral-300 rounded">6 módulos</span>
-              <span class="px-2 py-1 bg-dark-700 text-neutral-300 rounded">36 tópicos</span>
-              <span class="px-2 py-1 bg-dark-700 text-neutral-300 rounded">~3h</span>
-              <span class="px-2 py-1 bg-dark-700 text-neutral-300 rounded">Sem pré-requisito</span>
-            </div>
-          </div>
-          <div class="text-emerald-400 group-hover:translate-x-1 transition-transform">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path d="M9 5l7 7-7 7"/>
-            </svg>
-          </div>
+          <span class="inline-block px-2 py-1 bg-emerald-500/20 text-emerald-400 text-[10px] font-semibold rounded-full">TRILHA 1</span>
         </div>
-      </div>
-    </a>
+        <h3 class="text-xl font-bold mb-2 group-hover:text-emerald-400 transition-colors">📘 O Método</h3>
+        <p class="text-sm text-neutral-400 mb-4 flex-1">Entenda por que o método funciona. Cada chapéu, cada regra, o anti-âncora — ilustrado do dia a dia.</p>
+        <div class="flex flex-wrap gap-1 mb-4">
+          <span class="px-2 py-0.5 bg-dark-700 text-neutral-300 rounded text-[11px]">6 módulos</span>
+          <span class="px-2 py-0.5 bg-dark-700 text-neutral-300 rounded text-[11px]">~3h</span>
+          <span class="px-2 py-0.5 bg-dark-700 text-neutral-300 rounded text-[11px]">Iniciante</span>
+        </div>
+        <div class="flex items-center text-emerald-400 text-sm font-semibold group-hover:translate-x-1 transition-transform">
+          Começar
+          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </div>
+      </a>
 
-    <!-- Trilha 2 -->
-    <a href="curso/trilha2/index.html" class="group block bg-dark-800 rounded-xl border border-dark-600 overflow-hidden mb-6 hover:border-blue-500/30 hover:bg-blue-500/10 transition-all">
-      <div class="bg-gradient-to-br from-blue-900/30 via-dark-800 to-dark-800 p-8">
-        <div class="grid md:grid-cols-[auto_1fr_auto] gap-6 items-center">
-          <svg viewBox="0 0 100 100" class="w-20 h-20">
-            <rect x="15" y="40" width="70" height="50" rx="4" fill="#3b82f6" opacity="0.2" stroke="#3b82f6" stroke-width="2"/>
-            <line x1="25" y1="55" x2="75" y2="55" stroke="#3b82f6" stroke-width="2"/>
-            <line x1="25" y1="65" x2="60" y2="65" stroke="#3b82f6" stroke-width="2"/>
-            <line x1="25" y1="75" x2="70" y2="75" stroke="#3b82f6" stroke-width="2"/>
-            <circle cx="50" cy="30" r="8" fill="#3b82f6"/>
+      <!-- Trilha 2 -->
+      <a href="curso/trilha2/index.html" class="group flex flex-col bg-gradient-to-br from-blue-900/30 via-dark-800 to-dark-800 rounded-xl border border-dark-600 p-6 hover:border-blue-500/50 hover:bg-blue-500/10 transition-all">
+        <div class="flex items-center justify-between mb-4">
+          <svg viewBox="0 0 60 60" class="w-14 h-14">
+            <rect x="10" y="22" width="40" height="30" rx="3" fill="#3b82f6" opacity="0.25" stroke="#3b82f6" stroke-width="1.5"/>
+            <line x1="16" y1="32" x2="44" y2="32" stroke="#3b82f6" stroke-width="1.5"/>
+            <line x1="16" y1="38" x2="36" y2="38" stroke="#3b82f6" stroke-width="1.5"/>
+            <line x1="16" y1="44" x2="40" y2="44" stroke="#3b82f6" stroke-width="1.5"/>
+            <circle cx="30" cy="16" r="5" fill="#3b82f6"/>
           </svg>
-          <div>
-            <span class="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full mb-3">
-              TRILHA 2 · PRÁTICA
-            </span>
-            <h3 class="text-2xl font-bold mb-2 group-hover:text-blue-400 transition-colors">
-              🎯 A Prática
-            </h3>
-            <p class="text-neutral-400 mb-3">
-              Como usar no dia a dia. Invocação, variantes, leitura da saída, 10 marcos do Verde, anti-padrões e 3 casos completos ilustrados.
-            </p>
-            <div class="flex flex-wrap gap-2 text-xs">
-              <span class="px-2 py-1 bg-dark-700 text-neutral-300 rounded">6 módulos</span>
-              <span class="px-2 py-1 bg-dark-700 text-neutral-300 rounded">36 tópicos</span>
-              <span class="px-2 py-1 bg-dark-700 text-neutral-300 rounded">~3h</span>
-              <span class="px-2 py-1 bg-dark-700 text-neutral-300 rounded">Requer Trilha 1</span>
-            </div>
-          </div>
-          <div class="text-blue-400 group-hover:translate-x-1 transition-transform">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path d="M9 5l7 7-7 7"/>
-            </svg>
-          </div>
+          <span class="inline-block px-2 py-1 bg-blue-500/20 text-blue-400 text-[10px] font-semibold rounded-full">TRILHA 2</span>
         </div>
-      </div>
-    </a>
+        <h3 class="text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors">🎯 A Prática</h3>
+        <p class="text-sm text-neutral-400 mb-4 flex-1">Como usar no dia a dia. Invocação, variantes, 10 marcos do Verde, anti-padrões e 3 casos completos.</p>
+        <div class="flex flex-wrap gap-1 mb-4">
+          <span class="px-2 py-0.5 bg-dark-700 text-neutral-300 rounded text-[11px]">6 módulos</span>
+          <span class="px-2 py-0.5 bg-dark-700 text-neutral-300 rounded text-[11px]">~3h</span>
+          <span class="px-2 py-0.5 bg-dark-700 text-neutral-300 rounded text-[11px]">Intermediário</span>
+        </div>
+        <div class="flex items-center text-blue-400 text-sm font-semibold group-hover:translate-x-1 transition-transform">
+          Praticar
+          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </div>
+      </a>
 
-    <!-- Trilha 3 -->
-    <a href="curso/trilha3/index.html" class="group block bg-dark-800 rounded-xl border border-dark-600 overflow-hidden mb-6 hover:border-purple-500/30 hover:bg-purple-500/10 transition-all">
-      <div class="bg-gradient-to-br from-purple-900/30 via-dark-800 to-dark-800 p-8">
-        <div class="grid md:grid-cols-[auto_1fr_auto] gap-6 items-center">
-          <svg viewBox="0 0 100 100" class="w-20 h-20">
-            <rect x="15" y="15" width="70" height="70" rx="4" fill="#8b5cf6" opacity="0.2" stroke="#8b5cf6" stroke-width="2"/>
-            <text x="50" y="40" text-anchor="middle" font-family="monospace" font-size="8" fill="#8b5cf6">{</text>
-            <line x1="25" y1="50" x2="75" y2="50" stroke="#8b5cf6" stroke-width="1.5"/>
-            <line x1="25" y1="60" x2="65" y2="60" stroke="#8b5cf6" stroke-width="1.5"/>
-            <line x1="25" y1="70" x2="75" y2="70" stroke="#8b5cf6" stroke-width="1.5"/>
-            <text x="50" y="85" text-anchor="middle" font-family="monospace" font-size="8" fill="#8b5cf6">}</text>
+      <!-- Trilha 3 -->
+      <a href="curso/trilha3/index.html" class="group flex flex-col bg-gradient-to-br from-purple-900/30 via-dark-800 to-dark-800 rounded-xl border border-dark-600 p-6 hover:border-purple-500/50 hover:bg-purple-500/10 transition-all">
+        <div class="flex items-center justify-between mb-4">
+          <svg viewBox="0 0 60 60" class="w-14 h-14">
+            <rect x="8" y="8" width="44" height="44" rx="3" fill="#8b5cf6" opacity="0.25" stroke="#8b5cf6" stroke-width="1.5"/>
+            <text x="30" y="22" text-anchor="middle" font-family="monospace" font-size="7" fill="#8b5cf6">{</text>
+            <line x1="14" y1="28" x2="46" y2="28" stroke="#8b5cf6" stroke-width="1"/>
+            <line x1="14" y1="34" x2="40" y2="34" stroke="#8b5cf6" stroke-width="1"/>
+            <line x1="14" y1="40" x2="46" y2="40" stroke="#8b5cf6" stroke-width="1"/>
+            <text x="30" y="50" text-anchor="middle" font-family="monospace" font-size="7" fill="#8b5cf6">}</text>
           </svg>
-          <div>
-            <span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-semibold rounded-full mb-3">
-              TRILHA 3 · AVANÇADA
-            </span>
-            <h3 class="text-2xl font-bold mb-2 group-hover:text-purple-400 transition-colors">
-              🛠️ A Construção
-            </h3>
-            <p class="text-neutral-400 mb-3">
-              Como a skill é montada por dentro. Anatomia do SKILL.md, engenharia do description, regras como código e como criar sua própria variante.
-            </p>
-            <div class="flex flex-wrap gap-2 text-xs">
-              <span class="px-2 py-1 bg-dark-700 text-neutral-300 rounded">6 módulos</span>
-              <span class="px-2 py-1 bg-dark-700 text-neutral-300 rounded">36 tópicos</span>
-              <span class="px-2 py-1 bg-dark-700 text-neutral-300 rounded">~3h</span>
-              <span class="px-2 py-1 bg-dark-700 text-neutral-300 rounded">Requer Trilha 2</span>
-            </div>
-          </div>
-          <div class="text-purple-400 group-hover:translate-x-1 transition-transform">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path d="M9 5l7 7-7 7"/>
-            </svg>
-          </div>
+          <span class="inline-block px-2 py-1 bg-purple-500/20 text-purple-400 text-[10px] font-semibold rounded-full">TRILHA 3</span>
         </div>
-      </div>
-    </a>
+        <h3 class="text-xl font-bold mb-2 group-hover:text-purple-400 transition-colors">🛠️ A Construção</h3>
+        <p class="text-sm text-neutral-400 mb-4 flex-1">Como a skill é montada por dentro. Anatomia, description, regras como código e criação de variantes.</p>
+        <div class="flex flex-wrap gap-1 mb-4">
+          <span class="px-2 py-0.5 bg-dark-700 text-neutral-300 rounded text-[11px]">6 módulos</span>
+          <span class="px-2 py-0.5 bg-dark-700 text-neutral-300 rounded text-[11px]">~3h</span>
+          <span class="px-2 py-0.5 bg-dark-700 text-neutral-300 rounded text-[11px]">Avançado</span>
+        </div>
+        <div class="flex items-center text-purple-400 text-sm font-semibold group-hover:translate-x-1 transition-transform">
+          Construir
+          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+    </div>
   </section>
 
   <!-- DIAGRAMA DO FLUXO -->
   <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="text-center mb-12">
-      <h2 class="text-3xl font-bold mb-4">O fluxo, num piscar de olhos</h2>
+      <h2 class="text-3xl font-bold mb-4">O fluxo completo — 8 passos</h2>
       <p class="text-neutral-400 max-w-2xl mx-auto">
-        Toda sessão começa quebrando a âncora. Depois, um chapéu por vez. Termina com UMA recomendação.
+        Começa quebrando a âncora. Passa pelos 6 chapéus. Termina com síntese decisiva.
       </p>
     </div>
 
-    <div class="bg-dark-800 rounded-xl border border-dark-600 p-8">
-      <svg viewBox="0 0 800 200" class="w-full h-auto">
-        <!-- Fase 0 -->
-        <g transform="translate(40, 50)">
-          <rect x="0" y="0" width="90" height="100" rx="8" fill="#f97316" opacity="0.2" stroke="#f97316" stroke-width="2"/>
-          <text x="45" y="30" text-anchor="middle" font-weight="bold" fill="#f97316" font-size="14">Fase 0</text>
-          <text x="45" y="50" text-anchor="middle" fill="#fb923c" font-size="11">Anti-</text>
-          <text x="45" y="64" text-anchor="middle" fill="#fb923c" font-size="11">Âncora</text>
-          <text x="45" y="85" text-anchor="middle" font-size="20">🛡️</text>
-        </g>
-        <!-- Seta -->
-        <path d="M 135 100 L 160 100" stroke="#6b7280" stroke-width="2" marker-end="url(#arrow)"/>
+    <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 md:p-8">
+      <div class="flex flex-wrap items-center justify-center gap-x-1 gap-y-4 md:gap-x-2">
 
-        <!-- Azul abertura -->
-        <g transform="translate(165, 55)">
-          <circle cx="45" cy="45" r="42" fill="#3b82f6" opacity="0.2" stroke="#3b82f6" stroke-width="2"/>
-          <text x="45" y="40" text-anchor="middle" font-weight="bold" fill="#60a5fa" font-size="11">Azul</text>
-          <text x="45" y="55" text-anchor="middle" fill="#93c5fd" font-size="9">abertura</text>
-          <text x="45" y="75" text-anchor="middle" font-size="16">🎩</text>
-        </g>
-        <path d="M 260 100 L 285 100" stroke="#6b7280" stroke-width="2" marker-end="url(#arrow)"/>
+        <!-- Passo 0 -->
+        <div class="flex flex-col items-center w-20">
+          <div class="w-16 h-16 rounded-xl bg-orange-500/20 border-2 border-orange-500 flex items-center justify-center text-2xl">🛡️</div>
+          <span class="text-[11px] font-bold text-orange-400 mt-2">0 · Anti-Âncora</span>
+          <span class="text-[10px] text-neutral-500">quebra o viés</span>
+        </div>
+        <svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
 
-        <!-- 4 chapéus intercalados -->
-        <g transform="translate(290, 55)">
-          <circle cx="45" cy="45" r="42" fill="#e5e7eb" opacity="0.2" stroke="#9ca3af" stroke-width="2"/>
-          <text x="45" y="40" text-anchor="middle" font-weight="bold" fill="#d1d5db" font-size="11">Branco</text>
-          <text x="45" y="55" text-anchor="middle" fill="#9ca3af" font-size="9">fatos</text>
-          <text x="45" y="75" text-anchor="middle" font-size="16">📋</text>
-        </g>
-        <path d="M 385 100 L 410 100" stroke="#6b7280" stroke-width="2"/>
+        <!-- Passo 1 -->
+        <div class="flex flex-col items-center w-20">
+          <div class="w-16 h-16 rounded-full bg-blue-500/20 border-2 border-blue-500 flex items-center justify-center text-2xl">🎩</div>
+          <span class="text-[11px] font-bold text-blue-400 mt-2">1 · Azul</span>
+          <span class="text-[10px] text-neutral-500">abertura</span>
+        </div>
+        <svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
 
-        <g transform="translate(415, 55)">
-          <circle cx="45" cy="45" r="42" fill="#f59e0b" opacity="0.2" stroke="#f59e0b" stroke-width="2"/>
-          <text x="45" y="40" text-anchor="middle" font-weight="bold" fill="#fbbf24" font-size="11">Amarelo</text>
-          <text x="45" y="55" text-anchor="middle" fill="#fde68a" font-size="9">benefícios</text>
-          <text x="45" y="75" text-anchor="middle" font-size="16">☀️</text>
-        </g>
-        <path d="M 510 100 L 535 100" stroke="#6b7280" stroke-width="2"/>
+        <!-- Passo 2 -->
+        <div class="flex flex-col items-center w-20">
+          <div class="w-16 h-16 rounded-full bg-neutral-200/20 border-2 border-neutral-400 flex items-center justify-center text-2xl">📋</div>
+          <span class="text-[11px] font-bold text-neutral-300 mt-2">2 · Branco</span>
+          <span class="text-[10px] text-neutral-500">fatos</span>
+        </div>
+        <svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
 
-        <g transform="translate(540, 55)">
-          <circle cx="45" cy="45" r="42" fill="#374151" opacity="0.3" stroke="#111827" stroke-width="2"/>
-          <text x="45" y="40" text-anchor="middle" font-weight="bold" fill="#9ca3af" font-size="11">Preto</text>
-          <text x="45" y="55" text-anchor="middle" fill="#6b7280" font-size="9">riscos</text>
-          <text x="45" y="75" text-anchor="middle" font-size="16">⚠️</text>
-        </g>
-        <path d="M 635 100 L 660 100" stroke="#6b7280" stroke-width="2"/>
+        <!-- Passo 3 -->
+        <div class="flex flex-col items-center w-20">
+          <div class="w-16 h-16 rounded-full bg-yellow-500/20 border-2 border-yellow-500 flex items-center justify-center text-2xl">☀️</div>
+          <span class="text-[11px] font-bold text-yellow-400 mt-2">3 · Amarelo</span>
+          <span class="text-[10px] text-neutral-500">benefícios</span>
+        </div>
+        <svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
 
-        <g transform="translate(665, 55)">
-          <circle cx="45" cy="45" r="42" fill="#10b981" opacity="0.2" stroke="#10b981" stroke-width="2"/>
-          <text x="45" y="40" text-anchor="middle" font-weight="bold" fill="#34d399" font-size="11">Verde</text>
-          <text x="45" y="55" text-anchor="middle" fill="#6ee7b7" font-size="9">ideias</text>
-          <text x="45" y="75" text-anchor="middle" font-size="16">🌱</text>
-        </g>
+        <!-- Passo 4 -->
+        <div class="flex flex-col items-center w-20">
+          <div class="w-16 h-16 rounded-full bg-dark-900 border-2 border-dark-600 flex items-center justify-center text-2xl">⚠️</div>
+          <span class="text-[11px] font-bold text-neutral-200 mt-2">4 · Preto</span>
+          <span class="text-[10px] text-neutral-500">riscos</span>
+        </div>
+        <svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
 
-        <!-- Segunda linha: Vermelho + Azul síntese -->
-        <defs>
-          <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-            <path d="M0,0 L0,6 L6,3 z" fill="#6b7280"/>
-          </marker>
-        </defs>
-      </svg>
+        <!-- Passo 5 -->
+        <div class="flex flex-col items-center w-20">
+          <div class="w-16 h-16 rounded-full bg-emerald-500/20 border-2 border-emerald-500 flex items-center justify-center text-2xl">🌱</div>
+          <span class="text-[11px] font-bold text-emerald-400 mt-2">5 · Verde</span>
+          <span class="text-[10px] text-neutral-500">alternativas</span>
+        </div>
+        <svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
 
-      <p class="text-center text-sm text-neutral-500 mt-4">
-        Após o Verde: <span class="text-red-400 font-semibold">🔴 Vermelho</span> (intuição sem justificativa) → <span class="text-blue-400 font-semibold">🔵 Azul de síntese</span> (UMA recomendação + Plano B).
-      </p>
+        <!-- Passo 6 -->
+        <div class="flex flex-col items-center w-20">
+          <div class="w-16 h-16 rounded-full bg-red-500/20 border-2 border-red-500 flex items-center justify-center text-2xl">❤️</div>
+          <span class="text-[11px] font-bold text-red-400 mt-2">6 · Vermelho</span>
+          <span class="text-[10px] text-neutral-500">intuição</span>
+        </div>
+        <svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+
+        <!-- Passo 7 -->
+        <div class="flex flex-col items-center w-20">
+          <div class="w-16 h-16 rounded-full bg-blue-500/20 border-2 border-blue-500 flex items-center justify-center text-2xl">🎯</div>
+          <span class="text-[11px] font-bold text-blue-400 mt-2">7 · Azul</span>
+          <span class="text-[10px] text-neutral-500">síntese</span>
+        </div>
+      </div>
+
+      <div class="mt-8 pt-6 border-t border-dark-600">
+        <p class="text-center text-sm text-neutral-400">
+          <span class="text-orange-400 font-semibold">0 Fase 0</span> + <span class="text-blue-400 font-semibold">1+7 Azul (2×)</span> + <span class="text-neutral-300 font-semibold">2-6 os 5 demais chapéus</span> = <strong class="text-primary">8 passos</strong> no total.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -679,6 +625,17 @@
       <a href="curso/trilha1/index.html" class="inline-block px-8 py-4 bg-primary text-dark-900 rounded-lg font-bold hover:bg-yellow-300 transition-colors">
         Começar agora →
       </a>
+    </div>
+  </section>
+
+  <!-- INFOGRÁFICO FINAL -->
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="text-center mb-8">
+      <h2 class="text-3xl font-bold mb-4">O método inteiro numa imagem</h2>
+      <p class="text-neutral-400 max-w-2xl mx-auto">As 8 fases, as regras não-negociáveis e os gatilhos — tudo em um só quadro. Salva e consulta sempre que for aplicar.</p>
+    </div>
+    <div class="bg-dark-800 rounded-xl border border-dark-600 p-4 md:p-6">
+      <img src="doc/modelo6.png" alt="Infográfico completo: 8 fases do método dos 6 Chapéus + Anti-Âncora" class="w-full h-auto rounded-lg">
     </div>
   </section>
 
