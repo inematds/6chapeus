@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.4 Regras de isolamento | 6 Chapéus</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }</script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>body { font-family: 'Inter', sans-serif; } .dark body { background-color: #111827; } html:not(.dark) body { background-color: #f8fafc; } html:not(.dark) .bg-dark-900 { background-color: #ffffff; } html:not(.dark) .bg-dark-800 { background-color: #f9fafb; } html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; } html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; } html:not(.dark) .text-neutral-100 { color: #111827; } html:not(.dark) .text-neutral-300 { color: #4b5563; } html:not(.dark) .text-neutral-400 { color: #6b7280; } html:not(.dark) .text-neutral-500 { color: #9ca3af; } html:not(.dark) .border-dark-600 { border-color: #d1d5db; } html:not(.dark) .border-dark-700 { border-color: #e5e7eb; } html:not(.dark) .text-emerald-400 { color: #059669; } html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5, 150, 105, 0.12); } html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5, 150, 105, 0.08); } html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5, 150, 105, 0.25); } html:not(.dark) .hover\:bg-emerald-500\/30:hover { background-color: rgba(5, 150, 105, 0.18); } html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; } html:not(.dark) .text-primary { color: #a16207; } html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); } html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); } html:not(.dark) .text-sky-400 { color: #0369a1; } html:not(.dark) .text-yellow-400 { color: #a16207; } html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; } html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; } html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }</style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600"><div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex justify-between items-center h-14"><div class="flex items-center space-x-4"><a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300"><span class="text-2xl">🎩</span><span class="font-bold text-lg hidden sm:inline">6 Chapéus</span></a><span class="text-neutral-600">|</span><a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a></div><div class="flex items-center space-x-1 sm:space-x-2"><a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-emerald-400 bg-emerald-500/10"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Método</span></a><a href="../trilha2/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Prática</span></a><a href="../trilha3/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Construção</span></a><button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2"><svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg><svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg></button></div></div></div></nav>
+
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4"><div class="flex items-center space-x-2 text-sm text-neutral-400"><a href="../../index.html" class="hover:text-emerald-400">Início</a><span>/</span><a href="index.html" class="hover:text-emerald-400">Trilha 1</a><span>/</span><span class="text-emerald-400">Módulo 1.4</span></div></nav>
+
+  <header class="bg-gradient-to-br from-emerald-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600"><div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"><span class="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-semibold rounded-full mb-4">MÓDULO 1.4</span><h1 class="text-3xl sm:text-4xl font-bold mb-4">🧱 Regras de isolamento</h1><p class="text-lg text-neutral-400 max-w-3xl">As regras que impedem os chapéus de vazarem uns nos outros. Sem isolamento, o método vira lista de opiniões.</p><div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl"><div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">6</div><div class="text-xs text-neutral-400">Tópicos</div></div><div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">30</div><div class="text-xs text-neutral-400">Minutos</div></div><div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">Básico</div><div class="text-xs text-neutral-400">Nível</div></div><div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">Teoria</div><div class="text-xs text-neutral-400">Tipo</div></div></div></div></header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- TÓPICO 1 -->
+    <section class="mb-16">
+      <div class="flex items-center space-x-4 mb-6"><span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">1</span><h2 class="text-2xl font-bold">🎩 Um chapéu por vez — a regra-mãe</h2></div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">Enquanto você usa um chapéu, <strong class="text-emerald-400">os outros não existem</strong>. Se surgir conteúdo de outro, você descarta ou guarda para a fase dele. Cada chapéu é <strong>monolítico</strong> — uma peça única, sem fissuras.</p>
+
+      <!-- SVG: Compartimentos -->
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <svg viewBox="0 0 500 200" class="w-full max-w-2xl mx-auto">
+          <g transform="translate(30, 30)">
+            <rect x="0" y="0" width="70" height="140" fill="#3b82f6" opacity="0.2" stroke="#3b82f6" stroke-width="2" rx="4"/>
+            <text x="35" y="20" text-anchor="middle" font-size="11" font-weight="bold" fill="#60a5fa">AZUL</text>
+            <circle cx="35" cy="75" r="18" fill="#3b82f6" opacity="0.8"/>
+            <line x1="10" y1="130" x2="60" y2="130" stroke="#3b82f6" stroke-width="1" opacity="0.5"/>
+          </g>
+          <g transform="translate(110, 30)">
+            <rect x="0" y="0" width="70" height="140" fill="#e5e7eb" opacity="0.2" stroke="#9ca3af" stroke-width="2" rx="4"/>
+            <text x="35" y="20" text-anchor="middle" font-size="11" font-weight="bold" fill="#d1d5db">BRANCO</text>
+            <circle cx="35" cy="75" r="18" fill="#e5e7eb" opacity="0.8" stroke="#9ca3af"/>
+          </g>
+          <g transform="translate(190, 30)">
+            <rect x="0" y="0" width="70" height="140" fill="#f59e0b" opacity="0.2" stroke="#f59e0b" stroke-width="2" rx="4"/>
+            <text x="35" y="20" text-anchor="middle" font-size="11" font-weight="bold" fill="#fbbf24">AMARELO</text>
+            <circle cx="35" cy="75" r="18" fill="#f59e0b" opacity="0.8"/>
+          </g>
+          <g transform="translate(270, 30)">
+            <rect x="0" y="0" width="70" height="140" fill="#374151" opacity="0.3" stroke="#6b7280" stroke-width="2" rx="4"/>
+            <text x="35" y="20" text-anchor="middle" font-size="11" font-weight="bold" fill="#d1d5db">PRETO</text>
+            <circle cx="35" cy="75" r="18" fill="#374151" opacity="0.9"/>
+          </g>
+          <g transform="translate(350, 30)">
+            <rect x="0" y="0" width="70" height="140" fill="#10b981" opacity="0.2" stroke="#10b981" stroke-width="2" rx="4"/>
+            <text x="35" y="20" text-anchor="middle" font-size="11" font-weight="bold" fill="#34d399">VERDE</text>
+            <circle cx="35" cy="75" r="18" fill="#10b981" opacity="0.8"/>
+          </g>
+          <g transform="translate(430, 30)">
+            <rect x="0" y="0" width="50" height="140" fill="#dc2626" opacity="0.2" stroke="#dc2626" stroke-width="2" rx="4"/>
+            <text x="25" y="20" text-anchor="middle" font-size="11" font-weight="bold" fill="#f87171">VERM</text>
+            <circle cx="25" cy="75" r="15" fill="#dc2626" opacity="0.8"/>
+          </g>
+          <text x="250" y="195" text-anchor="middle" font-size="11" fill="#9ca3af">Cada chapéu em seu compartimento. Sem vazamento.</text>
+        </svg>
+      </div>
+
+      <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-red-400 mb-3 flex items-center"><span class="mr-2">⚠️</span> Contaminação cruzada</h3>
+        <p class="text-neutral-300 mb-3">Frase típica de contaminação: <em>"...mas por outro lado poderia ser bom porque..."</em> dentro do Preto. Ou <em>"...embora tenha o risco de..."</em> dentro do Amarelo.</p>
+        <p class="text-neutral-300"><strong>Correção:</strong> eliminar a frase contaminada. Monolítico significa sem "mas" do outro modo.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 2 -->
+    <section class="mb-16">
+      <div class="flex items-center space-x-4 mb-6"><span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">2</span><h2 class="text-2xl font-bold">🔵 O Azul abre e fecha — sempre</h2></div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">A sessão começa pelo <strong class="text-blue-400">Azul (abertura)</strong> e termina pelo <strong class="text-blue-400">Azul (síntese)</strong>. É o "sanduíche azul" que dá sentido ao meio.</p>
+
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <svg viewBox="0 0 500 120" class="w-full">
+          <g transform="translate(10, 40)">
+            <rect x="0" y="0" width="100" height="50" fill="#3b82f6" opacity="0.8" rx="4"/>
+            <text x="50" y="25" text-anchor="middle" font-size="12" font-weight="bold" fill="white">AZUL</text>
+            <text x="50" y="40" text-anchor="middle" font-size="10" fill="#dbeafe">abertura</text>
+          </g>
+          <path d="M 115 65 L 150 65" stroke="#6b7280" stroke-width="2" marker-end="url(#a1)"/>
+          <g transform="translate(155, 40)">
+            <rect x="0" y="0" width="190" height="50" fill="#374151" opacity="0.5" rx="4" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+            <text x="95" y="30" text-anchor="middle" font-size="12" fill="#d1d5db">Os 5 outros chapéus</text>
+          </g>
+          <path d="M 350 65 L 385 65" stroke="#6b7280" stroke-width="2" marker-end="url(#a1)"/>
+          <g transform="translate(390, 40)">
+            <rect x="0" y="0" width="100" height="50" fill="#3b82f6" opacity="0.8" rx="4"/>
+            <text x="50" y="25" text-anchor="middle" font-size="12" font-weight="bold" fill="white">AZUL</text>
+            <text x="50" y="40" text-anchor="middle" font-size="10" fill="#dbeafe">síntese</text>
+          </g>
+          <defs><marker id="a1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="#6b7280"/></marker></defs>
+        </svg>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+          <h4 class="font-bold text-emerald-400 mb-3">✓ Com azul de abertura</h4>
+          <p class="text-sm text-neutral-300">Cada chapéu responde à MESMA pergunta bem definida. A sessão tem foco.</p>
+        </div>
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-3">✗ Sem azul</h4>
+          <p class="text-sm text-neutral-300">Cada chapéu responde a uma pergunta sutilmente diferente. A síntese não consegue juntar tudo porque falta eixo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 3 -->
+    <section class="mb-16">
+      <div class="flex items-center space-x-4 mb-6"><span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">3</span><h2 class="text-2xl font-bold">🚫 Sem "porque" no Vermelho</h2></div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">A regra-teste mais simples do método. Se uma frase do Vermelho tem <strong class="text-red-400">"porque"</strong>, está inválida. O "porque" pertence ao Preto (lógica do risco) ou ao Branco (fato).</p>
+
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <h3 class="text-lg font-semibold mb-4">Antes e depois</h3>
+        <div class="space-y-3">
+          <div class="bg-red-900/20 border border-red-500/30 rounded-lg p-4">
+            <p class="text-xs font-bold text-red-400 mb-1">✗ Inválido</p>
+            <p class="text-sm text-neutral-300 italic">"Eu tenho medo de aceitar esse emprego <strong class="text-red-400">porque</strong> o prazo de experiência é curto."</p>
+          </div>
+          <div class="bg-emerald-900/20 border border-emerald-500/30 rounded-lg p-4">
+            <p class="text-xs font-bold text-emerald-400 mb-1">✓ Válido (corte no "porque")</p>
+            <p class="text-sm text-neutral-300 italic">Vermelho: "Eu tenho medo de aceitar esse emprego."</p>
+            <p class="text-sm text-neutral-300 italic mt-2">Preto: "Risco: prazo de experiência de 30 dias é curto demais para provar valor — Probabilidade/impacto: Médio/Alto."</p>
+            <p class="text-xs text-neutral-400 mt-2">A razão virou risco no Preto, no lugar certo.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 4 -->
+    <section class="mb-16">
+      <div class="flex items-center space-x-4 mb-6"><span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">4</span><h2 class="text-2xl font-bold">⚠️ Preto é lógica, não humor</h2></div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">Só entra no Preto o risco <strong class="text-emerald-400">enunciado como proposição verificável</strong>. "Não gosto" é Vermelho. "Vai dar errado" sem razão é ruído.</p>
+
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <h3 class="text-lg font-semibold mb-4">Teste de validade do risco</h3>
+        <div class="space-y-3">
+          <div class="bg-dark-700 rounded-lg p-4 border-l-4 border-emerald-500">
+            <p class="text-sm"><strong class="text-emerald-400">Válido:</strong> "Isto vai causar scope creep porque comentários puxam 5-6 sub-features conhecidas."</p>
+            <p class="text-xs text-neutral-400 mt-1">Verificável. Tem causa identificável.</p>
+          </div>
+          <div class="bg-dark-700 rounded-lg p-4 border-l-4 border-red-500">
+            <p class="text-sm"><strong class="text-red-400">Inválido:</strong> "Pode ser que haja algum problema."</p>
+            <p class="text-xs text-neutral-400 mt-1">Vago, hipotético, não-verificável. Não é risco, é ansiedade.</p>
+          </div>
+          <div class="bg-dark-700 rounded-lg p-4 border-l-4 border-red-500">
+            <p class="text-sm"><strong class="text-red-400">Inválido:</strong> "Eu não gosto dessa decisão."</p>
+            <p class="text-xs text-neutral-400 mt-1">É Vermelho disfarçado de Preto. Pertence à fase anterior.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 5 -->
+    <section class="mb-16">
+      <div class="flex items-center space-x-4 mb-6"><span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">5</span><h2 class="text-2xl font-bold">☀️ Amarelo exige argumento</h2></div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">Cada benefício precisa vir com um <strong class="text-emerald-400">"por que é plausível"</strong>. Entusiasmo sem argumento é hype, não Amarelo.</p>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Dica prática</h3>
+        <p class="text-neutral-300">Antes de escrever o benefício, pense: <strong>"se um cético educado perguntasse <em>por que isso seria verdade?</em>, eu teria uma resposta?"</strong>. Se não, descarte.</p>
+      </div>
+
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <h3 class="text-lg font-semibold mb-4">Exemplos filtrados</h3>
+        <div class="space-y-3">
+          <div class="bg-emerald-900/20 border border-emerald-500/30 rounded-lg p-3 text-sm text-neutral-300"><strong class="text-emerald-400">✓</strong> Benefício: aumentar retenção. Por que plausível: features colaborativas aumentam DAU em SaaS B2B (dado Slack/Asana).</div>
+          <div class="bg-red-900/20 border border-red-500/30 rounded-lg p-3 text-sm text-neutral-300"><strong class="text-red-400">✗</strong> Benefício: vai ser incrível. Por que plausível: <em>(vazio)</em>.</div>
+          <div class="bg-emerald-900/20 border border-emerald-500/30 rounded-lg p-3 text-sm text-neutral-300"><strong class="text-emerald-400">✓</strong> Benefício: diferencia do concorrente. Por que plausível: nenhum concorrente no nicho tem.</div>
+          <div class="bg-red-900/20 border border-red-500/30 rounded-lg p-3 text-sm text-neutral-300"><strong class="text-red-400">✗</strong> Benefício: usuários vão amar. Por que plausível: <em>(torcida)</em>.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 6 -->
+    <section class="mb-16">
+      <div class="flex items-center space-x-4 mb-6"><span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">6</span><h2 class="text-2xl font-bold">📭 Vazio declarado é informação</h2></div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">Se você não tem material para uma fase, <strong class="text-emerald-400">declare</strong>. "Não encontrei riscos sólidos para esta proposta." Isso é informação valiosa — significa que a análise foi honesta.</p>
+
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="bg-emerald-900/20 border border-emerald-500/30 rounded-lg p-4">
+            <h4 class="font-bold text-emerald-400 mb-2 text-sm">✓ Vazio declarado (honesto)</h4>
+            <p class="text-xs text-neutral-300 italic">"Preto: após análise, não encontrei riscos estruturais sólidos. A proposta é reversível, barata e o pior caso é perder 3 dias de trabalho."</p>
+          </div>
+          <div class="bg-red-900/20 border border-red-500/30 rounded-lg p-4">
+            <h4 class="font-bold text-red-400 mb-2 text-sm">✗ Preenchimento forçado (ruído)</h4>
+            <p class="text-xs text-neutral-300 italic">"Preto: pode ser que talvez haja alguma dificuldade. O mercado é incerto. Sempre há risco de imprevistos."</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Por que isso importa</h3>
+        <p class="text-neutral-300">Preencher por obrigação polui o método. O leitor perde confiança. Declarar vazio preserva a integridade — e às vezes é o sinal mais valioso: <strong>"não há riscos sérios, podemos executar"</strong>.</p>
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <div class="bg-gradient-to-br from-emerald-900/40 via-dark-800 to-dark-800 rounded-xl border border-emerald-500/30 p-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">📝</span> Resumo do Módulo</h2>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Um chapéu por vez</strong><span class="text-neutral-400"> - a regra-mãe. Cada chapéu é monolítico.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Azul abre e fecha</strong><span class="text-neutral-400"> - o sanduíche azul dá foco e síntese.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Sem "porque" no Vermelho</strong><span class="text-neutral-400"> - regra-teste mais simples.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Preto é lógica</strong><span class="text-neutral-400"> - risco verificável, não ansiedade.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Amarelo exige argumento</strong><span class="text-neutral-400"> - cético educado precisa ser respondido.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Vazio declarado é informação</strong><span class="text-neutral-400"> - não preenche por obrigação.</span></div></div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-4 mb-8"><h3 class="font-semibold text-emerald-400 mb-2">Próximo Módulo:</h3><p class="text-neutral-300">1.5 - A síntese azul</p></div>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="modulo-1-3.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Módulo Anterior</a>
+          <a href="modulo-1-5.html" class="flex-1 text-center px-6 py-3 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-500 transition-colors">Próximo Módulo →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-16"><div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm"><p>6 Chapéus + Anti-Âncora · Módulo 1.4 · 2026</p></div></footer>
+
+  <script>const themeToggle = document.getElementById('theme-toggle'); const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon'); const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon'); const html = document.documentElement; if (localStorage.getItem('theme') === 'light' || (!localStorage.getItem('theme') && !html.classList.contains('dark'))) { themeToggleDarkIcon.classList.remove('hidden'); html.classList.remove('dark'); } else { themeToggleLightIcon.classList.remove('hidden'); } themeToggle.addEventListener('click', () => { themeToggleDarkIcon.classList.toggle('hidden'); themeToggleLightIcon.classList.toggle('hidden'); html.classList.toggle('dark'); localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light'); });</script>
+</body>
+</html>

@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Como funciona a skill Seis Chapéus</title>
+<style>
+  :root {
+    --font-heading: Georgia, serif;
+    --font-body: system-ui, -apple-system, sans-serif;
+    --font-mono: ui-monospace, monospace;
+
+    --fersora: #B2CE38;
+    --fersora-dark: #7A9B1A;
+    --lavender: #98B4E0;
+    --orange: #E8842A;
+    --red: #DC3545;
+    --green: #1E9B50;
+    --dark: #1A202C;
+
+    --bg: #E8EDF6;
+    --surface: #FAFCFF;
+    --surface-recessed: #F0F4FA;
+    --heading: #212121;
+    --body: #444649;
+    --muted: #718096;
+
+    /* Cores dos chapéus */
+    --hat-blue: #2E5FB8;
+    --hat-white: #E8ECF4;
+    --hat-yellow: #E8B53A;
+    --hat-black: #2B2F3A;
+    --hat-green: #1E9B50;
+    --hat-red: #DC3545;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--body);
+    background:
+      radial-gradient(circle at 10% 0%, rgba(178, 206, 56, 0.12) 0%, transparent 40%),
+      radial-gradient(circle at 90% 100%, rgba(152, 180, 224, 0.18) 0%, transparent 45%),
+      var(--bg);
+    min-height: 100vh;
+    line-height: 1.6;
+    font-size: 16px;
+  }
+
+  /* NAV */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--dark);
+    padding: 0 20px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-width: max-content;
+  }
+  .nav a {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    padding: 12px 14px;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .nav a:hover, .nav a.active { color: var(--fersora); border-bottom-color: var(--fersora); }
+  @media (min-width: 769px) { .nav { padding: 0 40px; } }
+
+  /* CONTAINER */
+  .container { max-width: 1000px; margin: 0 auto; padding: 0 20px 40px; }
+  @media (min-width: 769px) { .container { padding: 0 40px 60px; } }
+
+  /* HERO */
+  .hero { padding: 32px 20px 24px; }
+  @media (min-width: 769px) { .hero { padding: 48px 40px 32px; } }
+
+  .tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fersora-dark);
+    background: rgba(178, 206, 56, 0.18);
+    padding: 6px 12px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: clamp(28px, 5vw, 42px);
+    line-height: 1.2;
+    color: var(--heading);
+    margin-bottom: 16px;
+  }
+
+  .lead {
+    font-size: clamp(16px, 2.2vw, 18px);
+    color: var(--body);
+    max-width: 720px;
+  }
+
+  .lead code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: rgba(26, 32, 44, 0.08);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--dark);
+  }
+
+  /* SECTIONS */
+  section { margin-top: 48px; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .section-num {
+    width: 30px; height: 30px;
+    border-radius: 8px;
+    background: var(--fersora);
+    color: var(--dark);
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: clamp(22px, 3.5vw, 28px);
+    color: var(--heading);
+    line-height: 1.3;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+
+  /* QUANDO USAR / NÃO USAR */
+  .when-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  @media (min-width: 769px) {
+    .when-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+  }
+  .when-card h3 {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .when-card h3::before {
+    content: '';
+    width: 10px; height: 10px; border-radius: 50%;
+  }
+  .when-card.yes h3 { color: var(--fersora-dark); }
+  .when-card.yes h3::before { background: var(--fersora); }
+  .when-card.no h3 { color: var(--red); }
+  .when-card.no h3::before { background: var(--red); }
+
+  .when-card ul { list-style: none; }
+  .when-card li {
+    padding: 6px 0;
+    font-size: 15px;
+    color: var(--body);
+    position: relative;
+    padding-left: 20px;
+  }
+  .when-card li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--muted);
+    font-family: var(--font-mono);
+  }
+
+  /* FLUXO */
+  .flow-intro {
+    font-size: 15px;
+    color: var(--body);
+    margin-bottom: 28px;
+    max-width: 720px;
+  }
+
+  .phase {
+    background: var(--surface);
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 16px;
+    align-items: start;
+    border-left: 4px solid transparent;
+  }
+
+  @media (min-width: 769px) {
+    .phase { grid-template-columns: 56px 1fr auto; gap: 20px; }
+  }
+
+  .hat {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+  }
+  @media (min-width: 769px) {
+    .hat { width: 56px; height: 56px; font-size: 24px; }
+  }
+
+  .hat.antiancora { background: var(--orange); }
+  .hat.blue { background: var(--hat-blue); }
+  .hat.white { background: var(--hat-white); color: var(--dark); border: 2px solid #CFD6E3; }
+  .hat.yellow { background: var(--hat-yellow); }
+  .hat.black { background: var(--hat-black); }
+  .hat.green { background: var(--hat-green); }
+  .hat.red { background: var(--hat-red); }
+
+  .phase-body h3 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--heading);
+    margin-bottom: 4px;
+  }
+  .phase-body p {
+    font-size: 14px;
+    color: var(--body);
+    line-height: 1.55;
+  }
+  .phase-rule {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    background: var(--surface-recessed);
+    padding: 6px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    align-self: center;
+    grid-column: 2 / 3;
+    margin-top: 8px;
+    justify-self: start;
+  }
+  @media (min-width: 769px) {
+    .phase-rule { grid-column: 3 / 4; margin-top: 0; }
+  }
+
+  /* Phase borders por cor */
+  .phase.p-antiancora { border-left-color: var(--orange); }
+  .phase.p-blue { border-left-color: var(--hat-blue); }
+  .phase.p-white { border-left-color: #CFD6E3; }
+  .phase.p-yellow { border-left-color: var(--hat-yellow); }
+  .phase.p-black { border-left-color: var(--hat-black); }
+  .phase.p-green { border-left-color: var(--hat-green); }
+  .phase.p-red { border-left-color: var(--hat-red); }
+
+  /* REGRAS */
+  .rules-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  @media (min-width: 769px) {
+    .rules-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+  }
+  .rule {
+    background: var(--surface);
+    border-radius: 10px;
+    padding: 14px 16px;
+    border-left: 3px solid var(--fersora);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  }
+  .rule-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--fersora-dark);
+    margin-bottom: 4px;
+    letter-spacing: 0.05em;
+  }
+  .rule p {
+    font-size: 14px;
+    color: var(--body);
+    line-height: 1.5;
+  }
+
+  /* SÍNTESE */
+  .synthesis {
+    background: var(--surface);
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    border-left: 4px solid var(--hat-blue);
+  }
+  .synthesis ol {
+    list-style: none;
+    counter-reset: synth;
+  }
+  .synthesis li {
+    counter-increment: synth;
+    padding: 10px 0 10px 40px;
+    position: relative;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    font-size: 15px;
+  }
+  .synthesis li:last-child { border-bottom: none; }
+  .synthesis li::before {
+    content: counter(synth);
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--hat-blue);
+    color: white;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .synthesis strong {
+    color: var(--heading);
+    font-weight: 600;
+  }
+
+  /* CALLOUT */
+  .callout {
+    background: rgba(178, 206, 56, 0.12);
+    border-left: 4px solid var(--fersora);
+    padding: 18px 22px;
+    border-radius: 10px;
+    margin-top: 28px;
+  }
+  .callout p {
+    font-size: 15px;
+    color: var(--body);
+  }
+  .callout strong { color: var(--fersora-dark); }
+
+  /* FOOTER */
+  footer {
+    margin-top: 72px;
+    padding: 32px 20px;
+    text-align: center;
+    border-top: 1px solid rgba(0,0,0,0.08);
+  }
+  .footer-meta {
+    margin-top: 12px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: none; }
+  }
+  .anim {
+    animation: fadeUp 0.4s ease-out both;
+    animation-delay: calc(var(--i, 0) * 0.05s);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .anim { animation: none; opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#o-que-e">O que é</a>
+    <a href="#quando">Quando usar</a>
+    <a href="#fluxo">Fluxo</a>
+    <a href="#regras">Regras</a>
+    <a href="#sintese">Síntese</a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <header class="hero anim">
+    <span class="tag">skill · fs-seis-chapeus</span>
+    <h1>Seis Chapéus + Anti-Âncora</h1>
+    <p class="lead">
+      O método de De Bono, mas com duas camadas que o tornam operável pelo Claude: ruptura obrigatória do viés antes de pensar e isolamento estrito entre fases. Um chapéu por vez, sem contaminação cruzada.
+    </p>
+  </header>
+
+  <!-- O QUE É -->
+  <section id="o-que-e" class="anim" style="--i:1">
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <h2>A ideia em uma frase</h2>
+    </div>
+    <div class="card">
+      <p style="font-family: var(--font-heading); font-size: 18px; line-height: 1.5; color: var(--heading);">
+        Em vez de misturar na mesma cabeça fatos, riscos, emoções e alternativas, a skill obriga você a usar um único chapéu por vez. Cada fase é monolítica. O azul abre e fecha. No meio, um único modo de pensar.
+      </p>
+      <p style="margin-top: 14px; font-size: 14px; color: var(--muted);">
+        O resultado não é um "prós e contras" decorativo. É uma recomendação acionável com Plano B, métricas de revisão e lacunas declaradas.
+      </p>
+    </div>
+  </section>
+
+  <!-- QUANDO USAR -->
+  <section id="quando" class="anim" style="--i:2">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <h2>Quando acionar e quando não</h2>
+    </div>
+    <div class="when-grid">
+      <div class="card when-card yes">
+        <h3>Use para</h3>
+        <ul>
+          <li>Decisões difíceis ou pouco reversíveis</li>
+          <li>Conflitos de equipe ou tensões misturadas</li>
+          <li>Validar uma proposta técnica ou comercial</li>
+          <li>Pre-mortem de um projeto</li>
+          <li>Desbloquear uma trava de pensamento</li>
+        </ul>
+      </div>
+      <div class="card when-card no">
+        <h3>Não use para</h3>
+        <ul>
+          <li>Perguntas factuais simples</li>
+          <li>Execução pura (código, e-mail, copy)</li>
+          <li>Decisões triviais e reversíveis</li>
+          <li>Quando quer opinião rápida sem processo</li>
+          <li>Se o problema cabe em 3 linhas</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLUXO -->
+  <section id="fluxo" class="anim" style="--i:3">
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <h2>O fluxo completo, fase a fase</h2>
+    </div>
+    <p class="flow-intro">
+      Oito fases em ordem. A fase 0 é obrigatória mesmo quando não detecta âncora. O azul aparece duas vezes: para abrir e para fechar com síntese.
+    </p>
+
+    <div class="phase p-antiancora">
+      <div class="hat antiancora">0</div>
+      <div class="phase-body">
+        <h3>Fase 0 · Anti-Âncora</h3>
+        <p>Antes dos chapéus. Reformulação pura do problema, identificação da suposição invisível, steel-man do oposto e pre-mortem rápido. Quebra o viés inicial seu e meu.</p>
+      </div>
+      <div class="phase-rule">obrigatória</div>
+    </div>
+
+    <div class="phase p-blue">
+      <div class="hat blue">🎩</div>
+      <div class="phase-body">
+        <h3>Chapéu Azul · Abertura</h3>
+        <p>Define a pergunta exata reformulada, as restrições conhecidas, o critério de sucesso e a ordem escolhida dos chapéus. Se faltar contexto, para e pergunta.</p>
+      </div>
+      <div class="phase-rule">4-8 linhas</div>
+    </div>
+
+    <div class="phase p-white">
+      <div class="hat white">⚪</div>
+      <div class="phase-body">
+        <h3>Chapéu Branco · Fatos</h3>
+        <p>Apenas dados. Separados em fatos verificados, fatos acreditados mas não verificados e lacunas de informação. Nada inventado. Se faltar dado crítico, declara.</p>
+      </div>
+      <div class="phase-rule">zero opinião</div>
+    </div>
+
+    <div class="phase p-yellow">
+      <div class="hat yellow">☀️</div>
+      <div class="phase-body">
+        <h3>Chapéu Amarelo · Benefícios</h3>
+        <p>Entre 3 e 7 benefícios, cada um com respaldo lógico próprio. Proibido ponderar com "embora" ou incluir advertências. Isso pertence ao preto.</p>
+      </div>
+      <div class="phase-rule">com "por quê"</div>
+    </div>
+
+    <div class="phase p-black">
+      <div class="hat black">⚫</div>
+      <div class="phase-body">
+        <h3>Chapéu Preto · Riscos</h3>
+        <p>Lógica negativa, não pessimismo. Entre 3 e 7 riscos concretos com probabilidade, impacto e raciocínio. Seja severo. Este é o chapéu mais valioso e o que mais se dilui por complacência.</p>
+      </div>
+      <div class="phase-rule">sem suavizar</div>
+    </div>
+
+    <div class="phase p-green">
+      <div class="hat green">🌱</div>
+      <div class="phase-body">
+        <h3>Chapéu Verde · Alternativas criativas</h3>
+        <p>Mínimo de 5 alternativas executivamente distintas, usando pelo menos 3 marcos divergentes e uma provocação radical. Nada de julgar aqui: isso vem depois.</p>
+      </div>
+      <div class="phase-rule">5+ / 3 marcos</div>
+    </div>
+
+    <div class="phase p-red">
+      <div class="hat red">❤️</div>
+      <div class="phase-body">
+        <h3>Chapéu Vermelho · Intuição</h3>
+        <p>Reações emocionais sem justificar. Frases curtas, diretas, viscerais. Se aparecer "porque" numa frase, a frase é inválida. Máximo 8 frases.</p>
+      </div>
+      <div class="phase-rule">sem "porque"</div>
+    </div>
+
+    <div class="phase p-blue">
+      <div class="hat blue">🎩</div>
+      <div class="phase-body">
+        <h3>Chapéu Azul · Síntese</h3>
+        <p>Convergência com matriz de decisão. Uma recomendação acionável, um Plano B com condição de ativação, métricas de revisão a 1-3 meses e as lacunas que seguem abertas.</p>
+      </div>
+      <div class="phase-rule">uma opção</div>
+    </div>
+  </section>
+
+  <!-- REGRAS-CHAVE -->
+  <section id="regras" class="anim" style="--i:4">
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <h2>As regras que não se mexem</h2>
+    </div>
+    <div class="rules-grid">
+      <div class="rule">
+        <div class="rule-num">01 · ISOLAMENTO</div>
+        <p>Um chapéu por vez. Enquanto você usa um, os demais não existem. Se aparecer conteúdo de outro, descarta ou guarda para a fase dele.</p>
+      </div>
+      <div class="rule">
+        <div class="rule-num">02 · ABERTURA E FECHAMENTO</div>
+        <p>O azul abre e fecha sempre. Sem azul de abertura não se começa. Sem síntese não se fecha.</p>
+      </div>
+      <div class="rule">
+        <div class="rule-num">03 · VERMELHO LIMPO</div>
+        <p>Sem justificativa no vermelho. Se aparecer "porque", a frase é inválida e se reescreve.</p>
+      </div>
+      <div class="rule">
+        <div class="rule-num">04 · PRETO VERIFICÁVEL</div>
+        <p>O preto é lógica negativa, não pessimismo. Apenas riscos reais, não "não gosto". Isso é vermelho.</p>
+      </div>
+      <div class="rule">
+        <div class="rule-num">05 · AMARELO COM LÓGICA</div>
+        <p>Cada benefício precisa de defesa lógica própria. Entusiasmo sem argumento não conta.</p>
+      </div>
+      <div class="rule">
+        <div class="rule-num">06 · VERDE DIVERGENTE</div>
+        <p>O verde usa marcos de divergência. Mínimo de três distintos e pelo menos uma provocação radical.</p>
+      </div>
+      <div class="rule">
+        <div class="rule-num">07 · NÃO SE MISTURA</div>
+        <p>Não se troca de chapéu no meio da fase. Se ficar curta, fecha e passa para a próxima.</p>
+      </div>
+      <div class="rule">
+        <div class="rule-num">08 · VAZIO DECLARADO</div>
+        <p>Se não houver material para uma fase, declara. "Não encontro riscos sólidos" é informação valiosa. Não se preenche com conteúdo falso.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SÍNTESE -->
+  <section id="sintese" class="anim" style="--i:5">
+    <div class="section-header">
+      <div class="section-num">05</div>
+      <h2>O que a síntese final entrega</h2>
+    </div>
+    <div class="synthesis">
+      <ol>
+        <li><strong>Mapa do terreno.</strong> 3-5 linhas resumindo o que foi visto após os seis chapéus.</li>
+        <li><strong>Tensões detectadas.</strong> Onde colidem preto e amarelo, onde o vermelho não encaixa com a lógica.</li>
+        <li><strong>Matriz de decisão.</strong> 3-5 critérios específicos do problema, com as alternativas do verde pontuadas.</li>
+        <li><strong>Recomendação acionável.</strong> Uma opção priorizada com passos concretos. Uma, não três.</li>
+        <li><strong>Plano B.</strong> Segunda opção com condição de ativação explícita.</li>
+        <li><strong>Métricas de revisão.</strong> Evidência concreta que faria revisar a escolha em 1-3 meses.</li>
+        <li><strong>Lacunas pendentes.</strong> Informação do branco que segue faltando e deveria ser obtida antes de executar.</li>
+      </ol>
+    </div>
+
+    <div class="callout">
+      <p><strong>Como invocar:</strong> basta pedir "seis chapeus", "seis chapéus", "six hats", "análise multi-perspectiva", "me ajuda a pensar" ou "quebra a âncora". Também é ativada diante de um "devo fazer X?" com tensão emocional, técnica e estratégica misturadas.</p>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="footer-meta">
+    skill fs-seis-chapeus · explainer visual · 2026
+  </div>
+</footer>
+
+<script>
+  // Scroll spy simples
+  const links = document.querySelectorAll('.nav a');
+  const sections = document.querySelectorAll('section[id]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

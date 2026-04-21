@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How the Six Hats Skill Works</title>
+<style>
+  :root {
+    --font-heading: Georgia, serif;
+    --font-body: system-ui, -apple-system, sans-serif;
+    --font-mono: ui-monospace, monospace;
+
+    --fersora: #B2CE38;
+    --fersora-dark: #7A9B1A;
+    --lavender: #98B4E0;
+    --orange: #E8842A;
+    --red: #DC3545;
+    --green: #1E9B50;
+    --dark: #1A202C;
+
+    --bg: #E8EDF6;
+    --surface: #FAFCFF;
+    --surface-recessed: #F0F4FA;
+    --heading: #212121;
+    --body: #444649;
+    --muted: #718096;
+
+    /* Hat colors */
+    --hat-blue: #2E5FB8;
+    --hat-white: #E8ECF4;
+    --hat-yellow: #E8B53A;
+    --hat-black: #2B2F3A;
+    --hat-green: #1E9B50;
+    --hat-red: #DC3545;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--body);
+    background:
+      radial-gradient(circle at 10% 0%, rgba(178, 206, 56, 0.12) 0%, transparent 40%),
+      radial-gradient(circle at 90% 100%, rgba(152, 180, 224, 0.18) 0%, transparent 45%),
+      var(--bg);
+    min-height: 100vh;
+    line-height: 1.6;
+    font-size: 16px;
+  }
+
+  /* NAV */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--dark);
+    padding: 0 20px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-width: max-content;
+  }
+  .nav a {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    padding: 12px 14px;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .nav a:hover, .nav a.active { color: var(--fersora); border-bottom-color: var(--fersora); }
+  @media (min-width: 769px) { .nav { padding: 0 40px; } }
+
+  /* CONTAINER */
+  .container { max-width: 1000px; margin: 0 auto; padding: 0 20px 40px; }
+  @media (min-width: 769px) { .container { padding: 0 40px 60px; } }
+
+  /* HERO */
+  .hero { padding: 32px 20px 24px; }
+  @media (min-width: 769px) { .hero { padding: 48px 40px 32px; } }
+
+  .tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fersora-dark);
+    background: rgba(178, 206, 56, 0.18);
+    padding: 6px 12px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: clamp(28px, 5vw, 42px);
+    line-height: 1.2;
+    color: var(--heading);
+    margin-bottom: 16px;
+  }
+
+  .lead {
+    font-size: clamp(16px, 2.2vw, 18px);
+    color: var(--body);
+    max-width: 720px;
+  }
+
+  .lead code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: rgba(26, 32, 44, 0.08);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--dark);
+  }
+
+  /* SECTIONS */
+  section { margin-top: 48px; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .section-num {
+    width: 30px; height: 30px;
+    border-radius: 8px;
+    background: var(--fersora);
+    color: var(--dark);
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: clamp(22px, 3.5vw, 28px);
+    color: var(--heading);
+    line-height: 1.3;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+
+  /* WHEN TO USE / NOT USE */
+  .when-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  @media (min-width: 769px) {
+    .when-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+  }
+  .when-card h3 {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .when-card h3::before {
+    content: '';
+    width: 10px; height: 10px; border-radius: 50%;
+  }
+  .when-card.yes h3 { color: var(--fersora-dark); }
+  .when-card.yes h3::before { background: var(--fersora); }
+  .when-card.no h3 { color: var(--red); }
+  .when-card.no h3::before { background: var(--red); }
+
+  .when-card ul { list-style: none; }
+  .when-card li {
+    padding: 6px 0;
+    font-size: 15px;
+    color: var(--body);
+    position: relative;
+    padding-left: 20px;
+  }
+  .when-card li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--muted);
+    font-family: var(--font-mono);
+  }
+
+  /* FLOW */
+  .flow-intro {
+    font-size: 15px;
+    color: var(--body);
+    margin-bottom: 28px;
+    max-width: 720px;
+  }
+
+  .phase {
+    background: var(--surface);
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 16px;
+    align-items: start;
+    border-left: 4px solid transparent;
+  }
+
+  @media (min-width: 769px) {
+    .phase { grid-template-columns: 56px 1fr auto; gap: 20px; }
+  }
+
+  .hat {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+  }
+  @media (min-width: 769px) {
+    .hat { width: 56px; height: 56px; font-size: 24px; }
+  }
+
+  .hat.antiancora { background: var(--orange); }
+  .hat.blue { background: var(--hat-blue); }
+  .hat.white { background: var(--hat-white); color: var(--dark); border: 2px solid #CFD6E3; }
+  .hat.yellow { background: var(--hat-yellow); }
+  .hat.black { background: var(--hat-black); }
+  .hat.green { background: var(--hat-green); }
+  .hat.red { background: var(--hat-red); }
+
+  .phase-body h3 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--heading);
+    margin-bottom: 4px;
+  }
+  .phase-body p {
+    font-size: 14px;
+    color: var(--body);
+    line-height: 1.55;
+  }
+  .phase-rule {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    background: var(--surface-recessed);
+    padding: 6px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    align-self: center;
+    grid-column: 2 / 3;
+    margin-top: 8px;
+    justify-self: start;
+  }
+  @media (min-width: 769px) {
+    .phase-rule { grid-column: 3 / 4; margin-top: 0; }
+  }
+
+  /* Phase borders by color */
+  .phase.p-antiancora { border-left-color: var(--orange); }
+  .phase.p-blue { border-left-color: var(--hat-blue); }
+  .phase.p-white { border-left-color: #CFD6E3; }
+  .phase.p-yellow { border-left-color: var(--hat-yellow); }
+  .phase.p-black { border-left-color: var(--hat-black); }
+  .phase.p-green { border-left-color: var(--hat-green); }
+  .phase.p-red { border-left-color: var(--hat-red); }
+
+  /* RULES */
+  .rules-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  @media (min-width: 769px) {
+    .rules-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+  }
+  .rule {
+    background: var(--surface);
+    border-radius: 10px;
+    padding: 14px 16px;
+    border-left: 3px solid var(--fersora);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  }
+  .rule-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--fersora-dark);
+    margin-bottom: 4px;
+    letter-spacing: 0.05em;
+  }
+  .rule p {
+    font-size: 14px;
+    color: var(--body);
+    line-height: 1.5;
+  }
+
+  /* SYNTHESIS */
+  .synthesis {
+    background: var(--surface);
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    border-left: 4px solid var(--hat-blue);
+  }
+  .synthesis ol {
+    list-style: none;
+    counter-reset: synth;
+  }
+  .synthesis li {
+    counter-increment: synth;
+    padding: 10px 0 10px 40px;
+    position: relative;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    font-size: 15px;
+  }
+  .synthesis li:last-child { border-bottom: none; }
+  .synthesis li::before {
+    content: counter(synth);
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--hat-blue);
+    color: white;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .synthesis strong {
+    color: var(--heading);
+    font-weight: 600;
+  }
+
+  /* CALLOUT */
+  .callout {
+    background: rgba(178, 206, 56, 0.12);
+    border-left: 4px solid var(--fersora);
+    padding: 18px 22px;
+    border-radius: 10px;
+    margin-top: 28px;
+  }
+  .callout p {
+    font-size: 15px;
+    color: var(--body);
+  }
+  .callout strong { color: var(--fersora-dark); }
+
+  /* FOOTER */
+  footer {
+    margin-top: 72px;
+    padding: 32px 20px;
+    text-align: center;
+    border-top: 1px solid rgba(0,0,0,0.08);
+  }
+  .footer-meta {
+    margin-top: 12px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: none; }
+  }
+  .anim {
+    animation: fadeUp 0.4s ease-out both;
+    animation-delay: calc(var(--i, 0) * 0.05s);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .anim { animation: none; opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#what-is">What it is</a>
+    <a href="#when">When to use</a>
+    <a href="#flow">Flow</a>
+    <a href="#rules">Rules</a>
+    <a href="#synthesis">Synthesis</a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <header class="hero anim">
+    <span class="tag">skill · fs-six-hats</span>
+    <h1>Six Hats + Anti-Anchor</h1>
+    <p class="lead">
+      De Bono's method, but with two layers that make it operable by Claude: mandatory bias rupture before thinking and strict isolation between phases. One hat at a time, no cross-contamination.
+    </p>
+  </header>
+
+  <!-- WHAT IT IS -->
+  <section id="what-is" class="anim" style="--i:1">
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <h2>The idea in one sentence</h2>
+    </div>
+    <div class="card">
+      <p style="font-family: var(--font-heading); font-size: 18px; line-height: 1.5; color: var(--heading);">
+        Instead of mixing facts, risks, emotions, and alternatives in the same head, the skill forces you to wear a single hat at a time. Each phase is monolithic. Blue opens and closes. In between, one single mode of thinking.
+      </p>
+      <p style="margin-top: 14px; font-size: 14px; color: var(--muted);">
+        The result is not a decorative "pros and cons" list. It's an actionable recommendation with a Plan B, review metrics, and declared gaps.
+      </p>
+    </div>
+  </section>
+
+  <!-- WHEN TO USE -->
+  <section id="when" class="anim" style="--i:2">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <h2>When to trigger and when not to</h2>
+    </div>
+    <div class="when-grid">
+      <div class="card when-card yes">
+        <h3>Use for</h3>
+        <ul>
+          <li>Hard or poorly reversible decisions</li>
+          <li>Team conflicts or tangled tensions</li>
+          <li>Validating a technical or commercial proposal</li>
+          <li>A project pre-mortem</li>
+          <li>Breaking out of a thinking block</li>
+        </ul>
+      </div>
+      <div class="card when-card no">
+        <h3>Don't use for</h3>
+        <ul>
+          <li>Simple factual questions</li>
+          <li>Pure execution (code, email, copy)</li>
+          <li>Trivial and reversible decisions</li>
+          <li>When you want a quick opinion without process</li>
+          <li>If the problem fits in 3 lines</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLOW -->
+  <section id="flow" class="anim" style="--i:3">
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <h2>The full flow, phase by phase</h2>
+    </div>
+    <p class="flow-intro">
+      Eight phases in order. Phase 0 is mandatory even when no anchor is detected. Blue appears twice: to open and to close with synthesis.
+    </p>
+
+    <div class="phase p-antiancora">
+      <div class="hat antiancora">0</div>
+      <div class="phase-body">
+        <h3>Phase 0 · Anti-Anchor</h3>
+        <p>Before the hats. Pure reformulation of the problem, identification of the invisible assumption, steel-man of the opposite, and a quick pre-mortem. Breaks both your initial bias and mine.</p>
+      </div>
+      <div class="phase-rule">mandatory</div>
+    </div>
+
+    <div class="phase p-blue">
+      <div class="hat blue">🎩</div>
+      <div class="phase-body">
+        <h3>Blue Hat · Opening</h3>
+        <p>Defines the exact reformulated question, the known constraints, the success criteria, and the chosen hat order. If context is missing, stops and asks.</p>
+      </div>
+      <div class="phase-rule">4-8 lines</div>
+    </div>
+
+    <div class="phase p-white">
+      <div class="hat white">⚪</div>
+      <div class="phase-body">
+        <h3>White Hat · Facts</h3>
+        <p>Data only. Separated into verified facts, believed-but-unverified facts, and information gaps. Nothing invented. If critical data is missing, it's declared.</p>
+      </div>
+      <div class="phase-rule">zero opinion</div>
+    </div>
+
+    <div class="phase p-yellow">
+      <div class="hat yellow">☀️</div>
+      <div class="phase-body">
+        <h3>Yellow Hat · Benefits</h3>
+        <p>Between 3 and 7 benefits, each with its own logical backing. Forbidden to hedge with "although" or include warnings. That belongs to Black.</p>
+      </div>
+      <div class="phase-rule">with a "why"</div>
+    </div>
+
+    <div class="phase p-black">
+      <div class="hat black">⚫</div>
+      <div class="phase-body">
+        <h3>Black Hat · Risks</h3>
+        <p>Negative logic, not pessimism. Between 3 and 7 concrete risks with probability, impact, and reasoning. Be severe. This is the most valuable hat and the one most diluted by complacency.</p>
+      </div>
+      <div class="phase-rule">no softening</div>
+    </div>
+
+    <div class="phase p-green">
+      <div class="hat green">🌱</div>
+      <div class="phase-body">
+        <h3>Green Hat · Creative alternatives</h3>
+        <p>At least 5 executively distinct alternatives, using at least 3 divergent frameworks and one radical provocation. No judging here: that comes later.</p>
+      </div>
+      <div class="phase-rule">5+ / 3 frameworks</div>
+    </div>
+
+    <div class="phase p-red">
+      <div class="hat red">❤️</div>
+      <div class="phase-body">
+        <h3>Red Hat · Intuition</h3>
+        <p>Emotional reactions without justification. Short, direct, visceral sentences. If "because" appears in a sentence, the sentence is invalid. Max 8 sentences.</p>
+      </div>
+      <div class="phase-rule">no "because"</div>
+    </div>
+
+    <div class="phase p-blue">
+      <div class="hat blue">🎩</div>
+      <div class="phase-body">
+        <h3>Blue Hat · Synthesis</h3>
+        <p>Convergence with a decision matrix. One actionable recommendation, a Plan B with activation condition, review metrics at 1-3 months, and the gaps that remain open.</p>
+      </div>
+      <div class="phase-rule">one option</div>
+    </div>
+  </section>
+
+  <!-- KEY RULES -->
+  <section id="rules" class="anim" style="--i:4">
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <h2>The rules that don't move</h2>
+    </div>
+    <div class="rules-grid">
+      <div class="rule">
+        <div class="rule-num">01 · ISOLATION</div>
+        <p>One hat at a time. While you're wearing one, the others don't exist. If content from another shows up, discard it or save it for its phase.</p>
+      </div>
+      <div class="rule">
+        <div class="rule-num">02 · OPENING AND CLOSING</div>
+        <p>Blue always opens and closes. No session starts without an opening Blue. No session closes without a synthesis.</p>
+      </div>
+      <div class="rule">
+        <div class="rule-num">03 · CLEAN RED</div>
+        <p>No justification in Red. If "because" appears, the sentence is invalid and gets rewritten.</p>
+      </div>
+      <div class="rule">
+        <div class="rule-num">04 · VERIFIABLE BLACK</div>
+        <p>Black is negative logic, not pessimism. Only real risks, not "I don't like it". That's Red.</p>
+      </div>
+      <div class="rule">
+        <div class="rule-num">05 · YELLOW WITH LOGIC</div>
+        <p>Every benefit needs its own logical defense. Enthusiasm without an argument doesn't count.</p>
+      </div>
+      <div class="rule">
+        <div class="rule-num">06 · DIVERGENT GREEN</div>
+        <p>Green uses divergence frameworks. At least three distinct ones and at least one radical provocation.</p>
+      </div>
+      <div class="rule">
+        <div class="rule-num">07 · DON'T MIX</div>
+        <p>Don't switch hats mid-phase. If the phase runs short, close it and move on to the next.</p>
+      </div>
+      <div class="rule">
+        <div class="rule-num">08 · DECLARED EMPTINESS</div>
+        <p>If there's no material for a phase, declare it. "I find no solid risks" is valuable information. Don't fill with fake content.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SYNTHESIS -->
+  <section id="synthesis" class="anim" style="--i:5">
+    <div class="section-header">
+      <div class="section-num">05</div>
+      <h2>What the final synthesis delivers</h2>
+    </div>
+    <div class="synthesis">
+      <ol>
+        <li><strong>Map of the terrain.</strong> 3-5 lines summarizing what was seen after the six hats.</li>
+        <li><strong>Detected tensions.</strong> Where Black and Yellow collide, where Red doesn't fit the logic.</li>
+        <li><strong>Decision matrix.</strong> 3-5 problem-specific criteria, with the Green alternatives scored.</li>
+        <li><strong>Actionable recommendation.</strong> One prioritized option with concrete steps. One, not three.</li>
+        <li><strong>Plan B.</strong> Second option with an explicit activation condition.</li>
+        <li><strong>Review metrics.</strong> Concrete evidence that would make you revisit the choice in 1-3 months.</li>
+        <li><strong>Pending gaps.</strong> White Hat information still missing and that should be obtained before executing.</li>
+      </ol>
+    </div>
+
+    <div class="callout">
+      <p><strong>How to invoke:</strong> just ask for "six hats", "seis chapeus", "seis chapéus", "multi-perspective analysis", "help me think", or "break the anchor". Also triggers on a "should I do X?" when emotional, technical, and strategic tensions are mixed together.</p>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="footer-meta">
+    skill fs-six-hats · visual explainer · 2026
+  </div>
+</footer>
+
+<script>
+  // Simple scroll spy
+  const links = document.querySelectorAll('.nav a');
+  const sections = document.querySelectorAll('section[id]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

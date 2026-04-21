@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.1 Por que o pensamento misturado falha | 6 Chapéus</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5, 150, 105, 0.12); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5, 150, 105, 0.08); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5, 150, 105, 0.25); }
+    html:not(.dark) .hover\:bg-emerald-500\/30:hover { background-color: rgba(5, 150, 105, 0.18); }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+
+    @keyframes pulse-soft { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.8; } }
+    .pulse-soft { animation: pulse-soft 3s ease-in-out infinite; }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300"><span class="text-2xl">🎩</span><span class="font-bold text-lg hidden sm:inline">6 Chapéus</span></a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-emerald-400 bg-emerald-500/10"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Método</span></a>
+          <a href="../trilha2/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Prática</span></a>
+          <a href="../trilha3/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Construção</span></a>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center space-x-2 text-sm text-neutral-400">
+      <a href="../../index.html" class="hover:text-emerald-400">Início</a>
+      <span>/</span>
+      <a href="index.html" class="hover:text-emerald-400">Trilha 1</a>
+      <span>/</span>
+      <span class="text-emerald-400">Módulo 1.1</span>
+    </div>
+  </nav>
+
+  <header class="bg-gradient-to-br from-emerald-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-semibold rounded-full mb-4">MÓDULO 1.1</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">🌀 Por que o pensamento misturado falha</h1>
+      <p class="text-lg text-neutral-400 max-w-3xl">O problema que os Seis Chapéus resolvem. Você já pensou muito sobre uma decisão e, no fim, não decidiu nada? A causa é quase sempre a mesma.</p>
+      <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">6</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">30</div><div class="text-xs text-neutral-400">Minutos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">Básico</div><div class="text-xs text-neutral-400">Nível</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">Teoria</div><div class="text-xs text-neutral-400">Tipo</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- TÓPICO 1 -->
+    <section class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">1</span>
+        <h2 class="text-2xl font-bold">🌀 A cabeça lotada</h2>
+      </div>
+
+      <p class="text-neutral-300 mb-6 leading-relaxed">Imagine que você precisa decidir se aceita ou não uma nova oferta de emprego. Num único minuto, sua cabeça faz: <strong class="text-emerald-400">"o salário é bom, mas e se eu não me adaptar, mas eu sempre quis isso, e se demitem em 6 meses, eu mereço essa oportunidade, meus amigos vão achar que eu abandonei..."</strong>. Tudo ao mesmo tempo. Você se cansa. Não decide. Vai dormir pior.</p>
+
+      <!-- ILUSTRAÇÃO: Cabeça misturada vs Cabeça isolada -->
+      <div class="grid md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4 flex items-center"><span class="mr-2">❌</span> Cabeça misturada</h4>
+          <svg viewBox="0 0 300 200" class="w-full">
+            <!-- Silhueta de cabeça -->
+            <path d="M 150 180 Q 150 60 100 60 Q 50 60 50 120 Q 50 170 80 180 L 80 195 L 220 195 L 220 180 Q 250 170 250 120 Q 250 60 200 60 Q 150 60 150 180 Z" fill="#fca5a5" opacity="0.2" stroke="#fca5a5" stroke-width="2"/>
+            <!-- Bolhas de pensamento misturadas -->
+            <circle cx="110" cy="100" r="22" fill="#3b82f6" opacity="0.6" class="pulse-soft"/>
+            <circle cx="150" cy="90" r="20" fill="#f59e0b" opacity="0.6" class="pulse-soft"/>
+            <circle cx="180" cy="105" r="18" fill="#10b981" opacity="0.6" class="pulse-soft"/>
+            <circle cx="125" cy="135" r="19" fill="#dc2626" opacity="0.6" class="pulse-soft"/>
+            <circle cx="170" cy="145" r="17" fill="#374151" opacity="0.7" class="pulse-soft"/>
+            <circle cx="200" cy="130" r="15" fill="#f3f4f6" opacity="0.5" class="pulse-soft"/>
+            <!-- Linhas cruzadas -->
+            <line x1="110" y1="100" x2="180" y2="145" stroke="#fca5a5" stroke-width="1" opacity="0.4"/>
+            <line x1="150" y1="90" x2="125" y2="135" stroke="#fca5a5" stroke-width="1" opacity="0.4"/>
+            <line x1="180" y1="105" x2="200" y2="130" stroke="#fca5a5" stroke-width="1" opacity="0.4"/>
+          </svg>
+          <p class="text-sm text-neutral-300 mt-4">Tudo ao mesmo tempo. Sensação de pensar muito. Decisão zero.</p>
+        </div>
+
+        <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+          <h4 class="font-bold text-emerald-400 mb-4 flex items-center"><span class="mr-2">✓</span> Cabeça com chapéu</h4>
+          <svg viewBox="0 0 300 200" class="w-full">
+            <path d="M 150 180 Q 150 60 100 60 Q 50 60 50 120 Q 50 170 80 180 L 80 195 L 220 195 L 220 180 Q 250 170 250 120 Q 250 60 200 60 Q 150 60 150 180 Z" fill="#6ee7b7" opacity="0.2" stroke="#6ee7b7" stroke-width="2"/>
+            <!-- Chapéu -->
+            <ellipse cx="150" cy="60" rx="70" ry="8" fill="#10b981"/>
+            <path d="M 110 60 Q 110 25 150 25 Q 190 25 190 60 Z" fill="#10b981"/>
+            <rect x="110" y="50" width="80" height="4" fill="#047857"/>
+            <!-- Uma única bolha focada -->
+            <circle cx="150" cy="120" r="30" fill="#10b981" opacity="0.4"/>
+            <text x="150" y="127" text-anchor="middle" font-size="20" fill="white">✓</text>
+          </svg>
+          <p class="text-sm text-neutral-300 mt-4">Um modo por vez. Pensar menos ao mesmo tempo, pensar melhor no total.</p>
+        </div>
+      </div>
+
+      <div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center"><span class="mr-2">💡</span> Conceito principal</h3>
+        <p class="text-neutral-300 mb-4">O que chamamos de "pensar muito" geralmente é <strong>alternar rapidamente</strong> entre medo, fato, ideia e crítica. Como a cabeça não consegue aprofundar em nenhum modo, você fica com impressão de esforço mas sem progresso.</p>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span>Seu cérebro <strong>alterna</strong>, não aprofunda.</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span>Cada troca de modo <strong>reseta</strong> o raciocínio anterior.</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span>O custo cognitivo é <strong>alto</strong>, o retorno é baixo.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- TÓPICO 2 -->
+    <section class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">2</span>
+        <h2 class="text-2xl font-bold">🎯 Um modo por vez</h2>
+      </div>
+
+      <p class="text-neutral-300 mb-6 leading-relaxed">O princípio central do método é simples: <strong class="text-emerald-400">um modo de pensamento por vez</strong>. Enquanto você está listando fatos, não está listando riscos. Enquanto está gerando ideias, não está criticando. Essa disciplina libera cada modo para ir mais fundo.</p>
+
+      <!-- ILUSTRAÇÃO: Comparação tempo -->
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <h3 class="text-lg font-semibold mb-4 text-center">Em 30 minutos de análise</h3>
+        <svg viewBox="0 0 600 250" class="w-full">
+          <!-- Modo misturado -->
+          <text x="10" y="25" font-weight="bold" fill="#fca5a5" font-size="14">MISTURADO</text>
+          <g transform="translate(10, 40)">
+            <rect x="0" y="0" width="15" height="20" fill="#3b82f6" opacity="0.6"/>
+            <rect x="15" y="0" width="8" height="20" fill="#f59e0b" opacity="0.6"/>
+            <rect x="23" y="0" width="22" height="20" fill="#dc2626" opacity="0.6"/>
+            <rect x="45" y="0" width="12" height="20" fill="#10b981" opacity="0.6"/>
+            <rect x="57" y="0" width="6" height="20" fill="#3b82f6" opacity="0.6"/>
+            <rect x="63" y="0" width="18" height="20" fill="#374151" opacity="0.8"/>
+            <rect x="81" y="0" width="9" height="20" fill="#f59e0b" opacity="0.6"/>
+            <rect x="90" y="0" width="25" height="20" fill="#dc2626" opacity="0.6"/>
+            <rect x="115" y="0" width="14" height="20" fill="#3b82f6" opacity="0.6"/>
+            <rect x="129" y="0" width="11" height="20" fill="#10b981" opacity="0.6"/>
+            <rect x="140" y="0" width="20" height="20" fill="#374151" opacity="0.8"/>
+            <rect x="160" y="0" width="7" height="20" fill="#f3f4f6" opacity="0.7"/>
+            <rect x="167" y="0" width="18" height="20" fill="#dc2626" opacity="0.6"/>
+            <rect x="185" y="0" width="15" height="20" fill="#3b82f6" opacity="0.6"/>
+            <rect x="200" y="0" width="10" height="20" fill="#10b981" opacity="0.6"/>
+            <rect x="210" y="0" width="13" height="20" fill="#f59e0b" opacity="0.6"/>
+            <rect x="223" y="0" width="28" height="20" fill="#dc2626" opacity="0.6"/>
+            <rect x="251" y="0" width="16" height="20" fill="#374151" opacity="0.8"/>
+            <rect x="267" y="0" width="12" height="20" fill="#3b82f6" opacity="0.6"/>
+            <rect x="279" y="0" width="20" height="20" fill="#10b981" opacity="0.6"/>
+            <rect x="299" y="0" width="15" height="20" fill="#f3f4f6" opacity="0.7"/>
+            <rect x="314" y="0" width="22" height="20" fill="#dc2626" opacity="0.6"/>
+            <rect x="336" y="0" width="18" height="20" fill="#f59e0b" opacity="0.6"/>
+            <rect x="354" y="0" width="11" height="20" fill="#3b82f6" opacity="0.6"/>
+            <rect x="365" y="0" width="215" height="20" fill="#6b7280" opacity="0.3"/>
+          </g>
+          <text x="10" y="85" font-size="11" fill="#9ca3af">Você alternou 24 vezes. Nenhum modo foi mais fundo.</text>
+
+          <!-- Modo com chapéus -->
+          <text x="10" y="130" font-weight="bold" fill="#6ee7b7" font-size="14">COM CHAPÉUS</text>
+          <g transform="translate(10, 145)">
+            <rect x="0" y="0" width="60" height="20" fill="#3b82f6" opacity="0.8"/>
+            <text x="30" y="14" text-anchor="middle" font-size="10" font-weight="bold" fill="white">AZUL</text>
+            <rect x="60" y="0" width="110" height="20" fill="#f3f4f6" opacity="0.9"/>
+            <text x="115" y="14" text-anchor="middle" font-size="10" font-weight="bold" fill="#374151">BRANCO</text>
+            <rect x="170" y="0" width="100" height="20" fill="#f59e0b" opacity="0.8"/>
+            <text x="220" y="14" text-anchor="middle" font-size="10" font-weight="bold" fill="white">AMARELO</text>
+            <rect x="270" y="0" width="100" height="20" fill="#374151" opacity="0.9"/>
+            <text x="320" y="14" text-anchor="middle" font-size="10" font-weight="bold" fill="white">PRETO</text>
+            <rect x="370" y="0" width="120" height="20" fill="#10b981" opacity="0.8"/>
+            <text x="430" y="14" text-anchor="middle" font-size="10" font-weight="bold" fill="white">VERDE</text>
+            <rect x="490" y="0" width="40" height="20" fill="#dc2626" opacity="0.8"/>
+            <text x="510" y="14" text-anchor="middle" font-size="10" font-weight="bold" fill="white">VERM</text>
+            <rect x="530" y="0" width="50" height="20" fill="#3b82f6" opacity="0.8"/>
+            <text x="555" y="14" text-anchor="middle" font-size="10" font-weight="bold" fill="white">AZUL</text>
+          </g>
+          <text x="10" y="190" font-size="11" fill="#9ca3af">Tempo dedicado a cada modo. Profundidade real. Síntese final.</text>
+
+          <!-- Eixo de tempo -->
+          <line x1="10" y1="225" x2="590" y2="225" stroke="#4b5563" stroke-width="1"/>
+          <text x="10" y="240" font-size="10" fill="#6b7280">0 min</text>
+          <text x="540" y="240" font-size="10" fill="#6b7280">30 min</text>
+        </svg>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Dica prática</h3>
+        <p class="text-neutral-300">Antes de começar uma análise, declare em voz alta: <strong>"agora eu só vou listar fatos. Nada mais."</strong> O simples ato de nomear o modo já reduz a tendência a misturar.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 3 -->
+    <section class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">3</span>
+        <h2 class="text-2xl font-bold">👨‍🎓 Edward de Bono</h2>
+      </div>
+
+      <p class="text-neutral-300 mb-6 leading-relaxed">Edward de Bono (1933-2021) foi médico, psicólogo, autor e consultor maltês. Criou o conceito de <strong class="text-emerald-400">pensamento lateral</strong> em 1967 e publicou <em>Six Thinking Hats</em> em 1985. Escreveu mais de 85 livros traduzidos para mais de 40 idiomas.</p>
+
+      <!-- ILUSTRAÇÃO: De Bono e os chapéus -->
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <svg viewBox="0 0 500 200" class="w-full max-w-xl mx-auto">
+          <!-- Silhueta acadêmica -->
+          <circle cx="100" cy="80" r="35" fill="#e5e7eb" opacity="0.3" stroke="#9ca3af" stroke-width="2"/>
+          <ellipse cx="100" cy="50" rx="45" ry="8" fill="#1f2937"/>
+          <rect x="55" y="42" width="90" height="12" fill="#1f2937"/>
+          <rect x="55" y="45" width="90" height="3" fill="#10b981"/>
+          <text x="100" y="85" text-anchor="middle" font-size="20">🎓</text>
+          <rect x="65" y="120" width="70" height="60" fill="#374151" opacity="0.5" rx="4"/>
+          <text x="100" y="190" text-anchor="middle" font-size="11" fill="#9ca3af" font-weight="bold">Edward de Bono</text>
+
+          <!-- Seta -->
+          <path d="M 165 120 L 210 120" stroke="#6b7280" stroke-width="2" marker-end="url(#arrow2)"/>
+          <defs>
+            <marker id="arrow2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="#6b7280"/></marker>
+          </defs>
+
+          <!-- 6 chapéus pequenos -->
+          <g transform="translate(230, 30)">
+            <circle cx="20" cy="30" r="18" fill="#3b82f6"/>
+            <text x="20" y="35" text-anchor="middle" font-size="12" fill="white">🎩</text>
+            <circle cx="55" cy="30" r="18" fill="#e5e7eb"/>
+            <text x="55" y="35" text-anchor="middle" font-size="12" fill="#374151">📋</text>
+            <circle cx="90" cy="30" r="18" fill="#f59e0b"/>
+            <text x="90" y="35" text-anchor="middle" font-size="12" fill="white">☀️</text>
+            <circle cx="125" cy="30" r="18" fill="#374151"/>
+            <text x="125" y="35" text-anchor="middle" font-size="12" fill="white">⚠️</text>
+            <circle cx="160" cy="30" r="18" fill="#10b981"/>
+            <text x="160" y="35" text-anchor="middle" font-size="12" fill="white">🌱</text>
+            <circle cx="195" cy="30" r="18" fill="#dc2626"/>
+            <text x="195" y="35" text-anchor="middle" font-size="12" fill="white">❤️</text>
+            <text x="107" y="70" text-anchor="middle" font-size="12" font-weight="bold" fill="#10b981">Six Thinking Hats (1985)</text>
+            <text x="107" y="95" text-anchor="middle" font-size="10" fill="#9ca3af">85+ livros · 40+ idiomas</text>
+            <text x="107" y="115" text-anchor="middle" font-size="10" fill="#9ca3af">Pensamento lateral (1967)</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">📚</span> Contexto histórico</h3>
+        <ul class="space-y-2 text-neutral-300">
+          <li><strong>1967</strong> — De Bono cunha o termo "pensamento lateral" (Lateral Thinking).</li>
+          <li><strong>1985</strong> — Publica Six Thinking Hats, transformando o conceito em método operável.</li>
+          <li><strong>Adotado</strong> por IBM, NASA, Pepsi, governos e escolas em dezenas de países.</li>
+          <li><strong>Princípio central</strong> — não existe "bom pensador". Existe pensador treinado em alternar modos.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- TÓPICO 4 -->
+    <section class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">4</span>
+        <h2 class="text-2xl font-bold">❌ O que NÃO é</h2>
+      </div>
+
+      <p class="text-neutral-300 mb-6 leading-relaxed">O erro mais comum: achar que os chapéus são só <strong class="text-red-400">"prós e contras com outros nomes"</strong>. Não são. Reduzir o método a isso elimina 4 dos 6 chapéus e destrói o valor.</p>
+
+      <!-- ILUSTRAÇÃO: Prós/contras vs 6 chapéus -->
+      <div class="grid md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">Prós vs Contras (o atalho pobre)</h4>
+          <svg viewBox="0 0 300 150" class="w-full">
+            <rect x="20" y="20" width="120" height="110" fill="#f59e0b" opacity="0.3" stroke="#f59e0b" stroke-width="1.5" rx="6"/>
+            <text x="80" y="45" text-anchor="middle" font-weight="bold" fill="#fbbf24">PRÓS</text>
+            <line x1="30" y1="60" x2="130" y2="60" stroke="#fbbf24" stroke-width="1" opacity="0.5"/>
+            <line x1="30" y1="75" x2="120" y2="75" stroke="#fbbf24" stroke-width="1" opacity="0.5"/>
+            <line x1="30" y1="90" x2="125" y2="90" stroke="#fbbf24" stroke-width="1" opacity="0.5"/>
+            <line x1="30" y1="105" x2="115" y2="105" stroke="#fbbf24" stroke-width="1" opacity="0.5"/>
+
+            <rect x="160" y="20" width="120" height="110" fill="#374151" opacity="0.5" stroke="#374151" stroke-width="1.5" rx="6"/>
+            <text x="220" y="45" text-anchor="middle" font-weight="bold" fill="#d1d5db">CONTRAS</text>
+            <line x1="170" y1="60" x2="270" y2="60" stroke="#9ca3af" stroke-width="1" opacity="0.5"/>
+            <line x1="170" y1="75" x2="260" y2="75" stroke="#9ca3af" stroke-width="1" opacity="0.5"/>
+            <line x1="170" y1="90" x2="265" y2="90" stroke="#9ca3af" stroke-width="1" opacity="0.5"/>
+            <line x1="170" y1="105" x2="255" y2="105" stroke="#9ca3af" stroke-width="1" opacity="0.5"/>
+          </svg>
+          <p class="text-xs text-neutral-400 mt-3">Apenas 2 modos. Zero criatividade. Zero intuição. Zero síntese decisiva.</p>
+        </div>
+
+        <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+          <h4 class="font-bold text-emerald-400 mb-4">6 chapéus (o método completo)</h4>
+          <svg viewBox="0 0 300 150" class="w-full">
+            <g transform="translate(20, 20)">
+              <rect x="0" y="0" width="80" height="40" fill="#3b82f6" opacity="0.4" rx="4"/>
+              <text x="40" y="25" text-anchor="middle" font-size="10" font-weight="bold" fill="#60a5fa">Azul</text>
+              <text x="40" y="38" text-anchor="middle" font-size="8" fill="#93c5fd">organiza</text>
+            </g>
+            <g transform="translate(110, 20)">
+              <rect x="0" y="0" width="80" height="40" fill="#e5e7eb" opacity="0.4" rx="4"/>
+              <text x="40" y="25" text-anchor="middle" font-size="10" font-weight="bold" fill="#d1d5db">Branco</text>
+              <text x="40" y="38" text-anchor="middle" font-size="8" fill="#9ca3af">fatos</text>
+            </g>
+            <g transform="translate(200, 20)">
+              <rect x="0" y="0" width="80" height="40" fill="#f59e0b" opacity="0.4" rx="4"/>
+              <text x="40" y="25" text-anchor="middle" font-size="10" font-weight="bold" fill="#fbbf24">Amarelo</text>
+              <text x="40" y="38" text-anchor="middle" font-size="8" fill="#fde68a">benefícios</text>
+            </g>
+            <g transform="translate(20, 70)">
+              <rect x="0" y="0" width="80" height="40" fill="#374151" opacity="0.7" rx="4"/>
+              <text x="40" y="25" text-anchor="middle" font-size="10" font-weight="bold" fill="#d1d5db">Preto</text>
+              <text x="40" y="38" text-anchor="middle" font-size="8" fill="#9ca3af">riscos</text>
+            </g>
+            <g transform="translate(110, 70)">
+              <rect x="0" y="0" width="80" height="40" fill="#10b981" opacity="0.4" rx="4"/>
+              <text x="40" y="25" text-anchor="middle" font-size="10" font-weight="bold" fill="#34d399">Verde</text>
+              <text x="40" y="38" text-anchor="middle" font-size="8" fill="#6ee7b7">ideias</text>
+            </g>
+            <g transform="translate(200, 70)">
+              <rect x="0" y="0" width="80" height="40" fill="#dc2626" opacity="0.4" rx="4"/>
+              <text x="40" y="25" text-anchor="middle" font-size="10" font-weight="bold" fill="#f87171">Vermelho</text>
+              <text x="40" y="38" text-anchor="middle" font-size="8" fill="#fca5a5">intuição</text>
+            </g>
+          </svg>
+          <p class="text-xs text-neutral-400 mt-3">6 modos. Criatividade + intuição + síntese. Decide de verdade.</p>
+        </div>
+      </div>
+
+      <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-red-400 mb-3 flex items-center"><span class="mr-2">⚠️</span> Atenção</h3>
+        <p class="text-neutral-300">Se você usar "só o Amarelo e o Preto", está fazendo prós e contras — NÃO está usando o método. Precisa dos 6 (ou no mínimo 5) para extrair o valor real.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 5 -->
+    <section class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">5</span>
+        <h2 class="text-2xl font-bold">🔊 Os 4 ruídos que o método corta</h2>
+      </div>
+
+      <p class="text-neutral-300 mb-6 leading-relaxed">Cada regra do método combate um tipo de ruído cognitivo. Conhecer os 4 ruídos ajuda a entender por que as regras são severas.</p>
+
+      <!-- ILUSTRAÇÃO: 4 ruídos -->
+      <div class="grid md:grid-cols-2 gap-4 mb-6">
+        <div class="bg-dark-800 rounded-xl border border-dark-600 p-5">
+          <div class="flex items-start space-x-3">
+            <svg viewBox="0 0 50 50" class="w-12 h-12 flex-shrink-0">
+              <circle cx="25" cy="25" r="22" fill="#dc2626" opacity="0.3"/>
+              <text x="25" y="30" text-anchor="middle" font-size="18">👑</text>
+            </svg>
+            <div>
+              <h4 class="font-bold text-red-400 mb-1">Ruído 1 — Ego</h4>
+              <p class="text-sm text-neutral-300">"Eu preciso estar certo." Faz você defender sua ideia em vez de testar.</p>
+              <p class="text-xs text-neutral-500 mt-2"><strong>Cortado por:</strong> Fase 0 (steel-man do oposto).</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-dark-800 rounded-xl border border-dark-600 p-5">
+          <div class="flex items-start space-x-3">
+            <svg viewBox="0 0 50 50" class="w-12 h-12 flex-shrink-0">
+              <circle cx="25" cy="25" r="22" fill="#374151" opacity="0.6"/>
+              <text x="25" y="30" text-anchor="middle" font-size="18">😰</text>
+            </svg>
+            <div>
+              <h4 class="font-bold text-red-400 mb-1">Ruído 2 — Medo</h4>
+              <p class="text-sm text-neutral-300">Preto antes da hora mata ideias boas cedo demais.</p>
+              <p class="text-xs text-neutral-500 mt-2"><strong>Cortado por:</strong> Isolamento (Verde antes do Preto).</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-dark-800 rounded-xl border border-dark-600 p-5">
+          <div class="flex items-start space-x-3">
+            <svg viewBox="0 0 50 50" class="w-12 h-12 flex-shrink-0">
+              <circle cx="25" cy="25" r="22" fill="#f59e0b" opacity="0.3"/>
+              <text x="25" y="30" text-anchor="middle" font-size="18">🎉</text>
+            </svg>
+            <div>
+              <h4 class="font-bold text-red-400 mb-1">Ruído 3 — Torcida</h4>
+              <p class="text-sm text-neutral-300">Amarelo sem argumento. Otimismo sem base é hype.</p>
+              <p class="text-xs text-neutral-500 mt-2"><strong>Cortado por:</strong> Amarelo exige "por quê".</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-dark-800 rounded-xl border border-dark-600 p-5">
+          <div class="flex items-start space-x-3">
+            <svg viewBox="0 0 50 50" class="w-12 h-12 flex-shrink-0">
+              <circle cx="25" cy="25" r="22" fill="#f97316" opacity="0.4"/>
+              <text x="25" y="30" text-anchor="middle" font-size="18">⚓</text>
+            </svg>
+            <div>
+              <h4 class="font-bold text-red-400 mb-1">Ruído 4 — Ancoragem</h4>
+              <p class="text-sm text-neutral-300">"Já decidi, só quero confirmação." Análise decorativa.</p>
+              <p class="text-xs text-neutral-500 mt-2"><strong>Cortado por:</strong> Fase 0 completa (4 movimentos).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 6 -->
+    <section class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">6</span>
+        <h2 class="text-2xl font-bold">💪 Quando a disciplina vira vantagem</h2>
+      </div>
+
+      <p class="text-neutral-300 mb-6 leading-relaxed">Nas primeiras sessões, parece burocrático. Depois de 3-5 aplicações, você começa a notar algo diferente: <strong class="text-emerald-400">você percebe o ruído em tempo real</strong>, mesmo fora de uma sessão formal. É quando o método deixa de ser ritual e vira hábito mental.</p>
+
+      <!-- ILUSTRAÇÃO: Curva de aprendizado -->
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <svg viewBox="0 0 500 200" class="w-full">
+          <!-- Eixos -->
+          <line x1="50" y1="170" x2="470" y2="170" stroke="#6b7280" stroke-width="1.5"/>
+          <line x1="50" y1="30" x2="50" y2="170" stroke="#6b7280" stroke-width="1.5"/>
+          <text x="260" y="195" text-anchor="middle" font-size="11" fill="#9ca3af">Sessões de prática</text>
+          <text x="25" y="100" text-anchor="middle" font-size="11" fill="#9ca3af" transform="rotate(-90, 25, 100)">Valor</text>
+
+          <!-- Curva -->
+          <path d="M 50 160 Q 120 160 180 130 T 300 70 T 470 50" stroke="#10b981" stroke-width="3" fill="none"/>
+
+          <!-- Pontos de marco -->
+          <circle cx="50" cy="160" r="5" fill="#10b981"/>
+          <text x="50" y="185" text-anchor="middle" font-size="10" fill="#34d399">1ª</text>
+
+          <circle cx="180" cy="130" r="5" fill="#10b981"/>
+          <text x="180" y="185" text-anchor="middle" font-size="10" fill="#34d399">3ª-5ª</text>
+
+          <circle cx="300" cy="70" r="6" fill="#34d399" stroke="#10b981" stroke-width="2"/>
+          <text x="300" y="185" text-anchor="middle" font-size="10" fill="#34d399" font-weight="bold">5ª-10ª ⭐</text>
+
+          <circle cx="470" cy="50" r="5" fill="#10b981"/>
+          <text x="465" y="185" text-anchor="end" font-size="10" fill="#34d399">habito</text>
+
+          <!-- Labels dos marcos -->
+          <text x="80" y="130" font-size="9" fill="#9ca3af">"parece burocrático"</text>
+          <text x="135" y="105" font-size="9" fill="#9ca3af">"faz sentido"</text>
+          <text x="240" y="55" font-size="9" fill="#34d399" font-weight="bold">"vira automático"</text>
+          <text x="380" y="30" font-size="9" fill="#6ee7b7">"detecta ruído sozinho"</text>
+        </svg>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+          <h4 class="font-bold text-emerald-400 mb-4">✓ Sinais de que você dominou</h4>
+          <ul class="space-y-3 text-neutral-300 text-sm">
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Em meio a uma reunião, você percebe: "isso aí é Vermelho disfarçado".</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Você pede para um colega "tirar o chapéu Preto por um minuto".</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Decisões difíceis param de prender você em loops de noite.</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Você formula recomendações com Plano B naturalmente.</span></li>
+          </ul>
+        </div>
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">✗ Sinais de que ainda é só ritual</h4>
+          <ul class="space-y-3 text-neutral-300 text-sm">
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Você "lista os chapéus" só pra obrigação.</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Todas as sessões terminam na sua ideia inicial.</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>O Verde sempre tem as mesmas 5 alternativas.</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Você salta a Fase 0 por pressa.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESUMO DO MÓDULO -->
+    <section class="mb-12">
+      <div class="bg-gradient-to-br from-emerald-900/40 via-dark-800 to-dark-800 rounded-xl border border-emerald-500/30 p-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">📝</span> Resumo do Módulo</h2>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Pensamento misturado é o padrão</strong><span class="text-neutral-400"> - alternar rápido entre modos sem aprofundar em nenhum.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Um modo por vez liberta cada modo</strong><span class="text-neutral-400"> - Preto mais severo, Verde mais criativo, Branco mais preciso.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">De Bono criou em 1985</strong><span class="text-neutral-400"> - complemento ao pensamento lateral (1967).</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Não é prós e contras</strong><span class="text-neutral-400"> - são 6 modos distintos, cada um com sua regra.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">4 ruídos cortados</strong><span class="text-neutral-400"> - ego, medo, torcida, ancoragem.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Vira hábito depois de 5-10 aplicações</strong><span class="text-neutral-400"> - você detecta o ruído mesmo fora da sessão.</span></div></div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+          <h3 class="font-semibold text-emerald-400 mb-2">Próximo Módulo:</h3>
+          <p class="text-neutral-300">1.2 - Os 6 chapéus de De Bono</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="index.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Voltar para Trilha</a>
+          <a href="modulo-1-2.html" class="flex-1 text-center px-6 py-3 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-500 transition-colors">Próximo Módulo →</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>6 Chapéus + Anti-Âncora · Módulo 1.1 · 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+    const html = document.documentElement;
+    if (localStorage.getItem('theme') === 'light' || (!localStorage.getItem('theme') && !html.classList.contains('dark'))) { themeToggleDarkIcon.classList.remove('hidden'); html.classList.remove('dark'); } else { themeToggleLightIcon.classList.remove('hidden'); }
+    themeToggle.addEventListener('click', () => { themeToggleDarkIcon.classList.toggle('hidden'); themeToggleLightIcon.classList.toggle('hidden'); html.classList.toggle('dark'); localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light'); });
+  </script>
+</body>
+</html>

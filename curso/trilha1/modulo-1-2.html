@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.2 Os 6 chapéus de De Bono | 6 Chapéus</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }</script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5, 150, 105, 0.12); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5, 150, 105, 0.08); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5, 150, 105, 0.25); }
+    html:not(.dark) .hover\:bg-emerald-500\/30:hover { background-color: rgba(5, 150, 105, 0.18); }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300"><span class="text-2xl">🎩</span><span class="font-bold text-lg hidden sm:inline">6 Chapéus</span></a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-emerald-400 bg-emerald-500/10"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Método</span></a>
+          <a href="../trilha2/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Prática</span></a>
+          <a href="../trilha3/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Construção</span></a>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center space-x-2 text-sm text-neutral-400">
+      <a href="../../index.html" class="hover:text-emerald-400">Início</a><span>/</span>
+      <a href="index.html" class="hover:text-emerald-400">Trilha 1</a><span>/</span>
+      <span class="text-emerald-400">Módulo 1.2</span>
+    </div>
+  </nav>
+
+  <header class="bg-gradient-to-br from-emerald-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-semibold rounded-full mb-4">MÓDULO 1.2</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">🎩 Os 6 chapéus de De Bono</h1>
+      <p class="text-lg text-neutral-400 max-w-3xl">Um por um, cada chapéu: sua cor, seu papel, o que fazer, o que proibir. Você vai sair sabendo invocar qualquer um por nome.</p>
+      <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">6</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">35</div><div class="text-xs text-neutral-400">Minutos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">Básico</div><div class="text-xs text-neutral-400">Nível</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">Teoria</div><div class="text-xs text-neutral-400">Tipo</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- TÓPICO 1 - AZUL -->
+    <section class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">1</span>
+        <h2 class="text-2xl font-bold">🔵 Azul — o maestro</h2>
+      </div>
+
+      <!-- SVG Azul -->
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <svg viewBox="0 0 500 180" class="w-full max-w-2xl mx-auto">
+          <g transform="translate(60, 40)">
+            <ellipse cx="50" cy="80" rx="55" ry="10" fill="#1e3a8a"/>
+            <path d="M 5 80 Q 5 20 50 20 Q 95 20 95 80 Z" fill="#3b82f6"/>
+            <rect x="5" y="65" width="90" height="5" fill="#1e3a8a"/>
+            <text x="50" y="55" text-anchor="middle" font-size="26">🎩</text>
+          </g>
+          <g transform="translate(200, 30)">
+            <text x="0" y="0" font-weight="bold" fill="#60a5fa" font-size="18">Azul = organizador</text>
+            <line x1="0" y1="10" x2="240" y2="10" stroke="#60a5fa" stroke-width="1" opacity="0.4"/>
+            <text x="0" y="35" font-size="12" fill="#93c5fd">• Define a pergunta a responder</text>
+            <text x="0" y="55" font-size="12" fill="#93c5fd">• Escolhe o critério de sucesso</text>
+            <text x="0" y="75" font-size="12" fill="#93c5fd">• Ordena os outros chapéus</text>
+            <text x="0" y="95" font-size="12" fill="#93c5fd">• Fecha com UMA recomendação</text>
+            <text x="0" y="130" font-size="11" fill="#3b82f6" font-style="italic">Abre e fecha a sessão sempre.</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">🎯</span> O papel do Azul</h3>
+        <p class="text-neutral-300 mb-4">É o chapéu que <strong>organiza</strong>. Na abertura, define a pergunta exata (reformulada, não copiada), critério de sucesso, e qual ordem os outros chapéus vão seguir. No fechamento, sintetiza tudo em uma matriz de decisão e entrega UMA recomendação com Plano B.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+          <h4 class="font-bold text-emerald-400 mb-4">✓ O que o Azul FAZ</h4>
+          <ul class="space-y-2 text-neutral-300 text-sm">
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Reformula a pergunta original</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Define "como saberemos que é bom"</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Escolhe a variante de ordem</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Faz matriz + recomendação única</span></li>
+          </ul>
+        </div>
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">✗ O que o Azul NÃO faz</h4>
+          <ul class="space-y-2 text-neutral-300 text-sm">
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Expressa opinião pessoal</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Avalia alternativas (Verde faz isso)</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Oferece 3 caminhos "à escolha"</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Copia a pergunta original do usuário</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 2 - BRANCO -->
+    <section class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">2</span>
+        <h2 class="text-2xl font-bold">⚪ Branco — só os fatos</h2>
+      </div>
+
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <svg viewBox="0 0 500 180" class="w-full max-w-2xl mx-auto">
+          <g transform="translate(60, 40)">
+            <ellipse cx="50" cy="80" rx="55" ry="10" fill="#9ca3af"/>
+            <path d="M 5 80 Q 5 20 50 20 Q 95 20 95 80 Z" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+            <rect x="5" y="65" width="90" height="5" fill="#9ca3af"/>
+            <text x="50" y="55" text-anchor="middle" font-size="24">📋</text>
+          </g>
+          <g transform="translate(200, 30)">
+            <text x="0" y="0" font-weight="bold" fill="#d1d5db" font-size="18">Branco = dados puros</text>
+            <line x1="0" y1="10" x2="240" y2="10" stroke="#d1d5db" stroke-width="1" opacity="0.4"/>
+            <text x="0" y="35" font-size="12" fill="#e5e7eb">✓ Fatos verificados</text>
+            <text x="0" y="55" font-size="12" fill="#e5e7eb">~ Fatos acreditados (não provados)</text>
+            <text x="0" y="75" font-size="12" fill="#e5e7eb">? Lacunas de informação</text>
+            <text x="0" y="110" font-size="11" fill="#9ca3af" font-style="italic">Zero opinião. Zero projeção.</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Dica prática</h3>
+        <p class="text-neutral-300">Ao escrever um fato, se aparecer algum advérbio de probabilidade ("provavelmente", "geralmente", "frequentemente"), <strong>pare</strong>. Esse fato foi "acreditado", não "verificado". Mova para a categoria certa.</p>
+      </div>
+
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <h3 class="text-lg font-semibold mb-4">Exemplo: decidindo mudar de cidade</h3>
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="bg-emerald-900/20 border border-emerald-500/30 rounded-lg p-4">
+            <h4 class="font-bold text-emerald-400 mb-2 text-sm">✓ Verificados</h4>
+            <p class="text-xs text-neutral-300">• Aluguel lá: R$ 3.400 (anúncio da imobiliária)<br>• Salário novo: R$ 12k (oferta escrita)<br>• Distância: 780 km</p>
+          </div>
+          <div class="bg-yellow-900/20 border border-yellow-500/30 rounded-lg p-4">
+            <h4 class="font-bold text-yellow-400 mb-2 text-sm">~ Acreditados</h4>
+            <p class="text-xs text-neutral-300">• "Qualidade de vida é melhor" (ouvi falar)<br>• "Custo de vida 20% maior" (impressão)<br>• "Emprego em 6 meses se der errado"</p>
+          </div>
+          <div class="bg-red-900/20 border border-red-500/30 rounded-lg p-4">
+            <h4 class="font-bold text-red-400 mb-2 text-sm">? Lacunas</h4>
+            <p class="text-xs text-neutral-300">• Custo real do plano de saúde local<br>• Demanda da minha área naquela cidade<br>• Valor do m² para quando comprar</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 3 - AMARELO -->
+    <section class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">3</span>
+        <h2 class="text-2xl font-bold">🟡 Amarelo — benefícios com lógica</h2>
+      </div>
+
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <svg viewBox="0 0 500 180" class="w-full max-w-2xl mx-auto">
+          <g transform="translate(60, 40)">
+            <ellipse cx="50" cy="80" rx="55" ry="10" fill="#92400e"/>
+            <path d="M 5 80 Q 5 20 50 20 Q 95 20 95 80 Z" fill="#f59e0b"/>
+            <rect x="5" y="65" width="90" height="5" fill="#92400e"/>
+            <text x="50" y="55" text-anchor="middle" font-size="24">☀️</text>
+          </g>
+          <g transform="translate(200, 30)">
+            <text x="0" y="0" font-weight="bold" fill="#fbbf24" font-size="18">Amarelo = benefícios</text>
+            <line x1="0" y1="10" x2="240" y2="10" stroke="#fbbf24" stroke-width="1" opacity="0.4"/>
+            <text x="0" y="35" font-size="12" fill="#fde68a">• 3 a 7 benefícios concretos</text>
+            <text x="0" y="55" font-size="12" fill="#fde68a">• Cada um com "por que é plausível"</text>
+            <text x="0" y="75" font-size="12" fill="#fde68a">• Proibido matizar com "embora"</text>
+            <text x="0" y="110" font-size="11" fill="#f59e0b" font-style="italic">Otimismo com argumento, não hype.</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <h3 class="text-lg font-semibold mb-4">Fórmula do benefício bem feito</h3>
+        <div class="bg-dark-700 rounded-lg p-4 font-mono text-sm">
+          <p class="text-yellow-400 mb-2"><strong>Benefício:</strong> [descrição concreta]</p>
+          <p class="text-neutral-400">— <strong>Por que é plausível:</strong> [raciocínio baseado em fato, analogia, ou lógica econômica]</p>
+        </div>
+
+        <div class="mt-4 grid md:grid-cols-2 gap-4">
+          <div class="bg-emerald-900/20 border border-emerald-500/30 rounded-lg p-4">
+            <p class="text-xs font-bold text-emerald-400 mb-2">✓ BOM</p>
+            <p class="text-sm text-neutral-300"><strong>Benefício:</strong> Aumento de retenção em SaaS B2B.<br><em>— Por que: features colaborativas comprovadamente aumentam uso diário em produtos de equipe (Slack, Asana).</em></p>
+          </div>
+          <div class="bg-red-900/20 border border-red-500/30 rounded-lg p-4">
+            <p class="text-xs font-bold text-red-400 mb-2">✗ RUIM</p>
+            <p class="text-sm text-neutral-300"><strong>Benefício:</strong> Os usuários vão amar.<br><em>— Por que: (vazio). Entusiasmo sem argumento.</em></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 4 - PRETO -->
+    <section class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">4</span>
+        <h2 class="text-2xl font-bold">⚫ Preto — riscos concretos</h2>
+      </div>
+
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <svg viewBox="0 0 500 180" class="w-full max-w-2xl mx-auto">
+          <g transform="translate(60, 40)">
+            <ellipse cx="50" cy="80" rx="55" ry="10" fill="#030712"/>
+            <path d="M 5 80 Q 5 20 50 20 Q 95 20 95 80 Z" fill="#1f2937"/>
+            <rect x="5" y="65" width="90" height="5" fill="#030712"/>
+            <text x="50" y="55" text-anchor="middle" font-size="24">⚠️</text>
+          </g>
+          <g transform="translate(200, 30)">
+            <text x="0" y="0" font-weight="bold" fill="#d1d5db" font-size="18">Preto = riscos</text>
+            <line x1="0" y1="10" x2="240" y2="10" stroke="#d1d5db" stroke-width="1" opacity="0.4"/>
+            <text x="0" y="35" font-size="12" fill="#e5e7eb">• 3 a 7 riscos verificáveis</text>
+            <text x="0" y="55" font-size="12" fill="#e5e7eb">• Probabilidade + impacto</text>
+            <text x="0" y="75" font-size="12" fill="#e5e7eb">• Enunciação com segurança</text>
+            <text x="0" y="110" font-size="11" fill="#9ca3af" font-style="italic">Lógica negativa, não pessimismo.</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-red-400 mb-3 flex items-center"><span class="mr-2">⚠️</span> A armadilha da complacência</h3>
+        <p class="text-neutral-300 mb-3">O Preto é o chapéu <strong>mais valioso</strong> — e também o que mais se dilui por querer "ser gentil". Frases como "poderia talvez haver alguma complicação" são Preto inútil.</p>
+        <p class="text-neutral-300"><strong>Teste:</strong> troque "poderia" por "vai". Se continuar parecendo plausível, o risco é real. Se virar absurdo, é medo genérico.</p>
+      </div>
+
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <h3 class="text-lg font-semibold mb-4">Exemplos de risco bem enunciado</h3>
+        <div class="space-y-3">
+          <div class="bg-dark-700 rounded-lg p-4 border-l-4 border-red-500">
+            <p class="text-sm"><strong class="text-red-400">Risco:</strong> Moderação legal de conteúdo sensível.<br><strong class="text-neutral-300">Probabilidade/impacto:</strong> Alto/Alto.<br><strong class="text-neutral-400">Por quê:</strong> Dados de saúde são LGPD categoria especial; cria obrigação legal de moderar.</p>
+          </div>
+          <div class="bg-dark-700 rounded-lg p-4 border-l-4 border-red-500">
+            <p class="text-sm"><strong class="text-red-400">Risco:</strong> Scope creep ampliando prazo de 2 para 8 semanas.<br><strong class="text-neutral-300">Probabilidade/impacto:</strong> Alto/Alto.<br><strong class="text-neutral-400">Por quê:</strong> Comentários puxam notificações, menções, edição, denúncia — cada um é um mini-projeto.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 5 - VERDE -->
+    <section class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">5</span>
+        <h2 class="text-2xl font-bold">🟢 Verde — alternativas criativas</h2>
+      </div>
+
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <svg viewBox="0 0 500 180" class="w-full max-w-2xl mx-auto">
+          <g transform="translate(60, 40)">
+            <ellipse cx="50" cy="80" rx="55" ry="10" fill="#064e3b"/>
+            <path d="M 5 80 Q 5 20 50 20 Q 95 20 95 80 Z" fill="#10b981"/>
+            <rect x="5" y="65" width="90" height="5" fill="#064e3b"/>
+            <text x="50" y="55" text-anchor="middle" font-size="24">🌱</text>
+          </g>
+          <g transform="translate(200, 30)">
+            <text x="0" y="0" font-weight="bold" fill="#34d399" font-size="18">Verde = divergência</text>
+            <line x1="0" y1="10" x2="240" y2="10" stroke="#34d399" stroke-width="1" opacity="0.4"/>
+            <text x="0" y="35" font-size="12" fill="#6ee7b7">• Mínimo 5 alternativas distintas</text>
+            <text x="0" y="55" font-size="12" fill="#6ee7b7">• 3+ marcos divergentes</text>
+            <text x="0" y="75" font-size="12" fill="#6ee7b7">• 1 provocação radical</text>
+            <text x="0" y="110" font-size="11" fill="#10b981" font-style="italic">Proibido pré-julgar aqui.</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center"><span class="mr-2">💡</span> Conceito principal</h3>
+        <p class="text-neutral-300 mb-4">Uma "alternativa" no Verde não é "a mesma ideia com outra cor de botão". É algo <strong>executivamente distinto</strong>: muda o QUÊ ou o COMO fundamental. Custo e resultado de duas alternativas devem ser claramente diferentes.</p>
+        <p class="text-neutral-300">O Verde usa <strong>marcos divergentes</strong> (Inversão, TRIZ, Cross-domain, Eliminação, SCAMPER e outros) para forçar pensamento lateral. Você aprende os 10 marcos na Trilha 2.</p>
+      </div>
+
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <h3 class="text-lg font-semibold mb-4">5 alternativas executivamente distintas — exemplo</h3>
+        <div class="space-y-2">
+          <div class="bg-dark-700 rounded p-3 text-sm"><strong class="text-emerald-400">Alt 1:</strong> Slack externo (custo 0, 1h)</div>
+          <div class="bg-dark-700 rounded p-3 text-sm"><strong class="text-emerald-400">Alt 2:</strong> Mensagens 1:1 internas (2 semanas)</div>
+          <div class="bg-dark-700 rounded p-3 text-sm"><strong class="text-emerald-400">Alt 3:</strong> Pesquisa antes de construir (1 semana)</div>
+          <div class="bg-dark-700 rounded p-3 text-sm"><strong class="text-emerald-400">Alt 4:</strong> Áudio em vez de texto (provocação radical)</div>
+          <div class="bg-dark-700 rounded p-3 text-sm"><strong class="text-emerald-400">Alt 5:</strong> Não fazer nada, focar em aquisição (inversão)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 6 - VERMELHO -->
+    <section class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">6</span>
+        <h2 class="text-2xl font-bold">🔴 Vermelho — intuição sem justificativa</h2>
+      </div>
+
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <svg viewBox="0 0 500 180" class="w-full max-w-2xl mx-auto">
+          <g transform="translate(60, 40)">
+            <ellipse cx="50" cy="80" rx="55" ry="10" fill="#7f1d1d"/>
+            <path d="M 5 80 Q 5 20 50 20 Q 95 20 95 80 Z" fill="#dc2626"/>
+            <rect x="5" y="65" width="90" height="5" fill="#7f1d1d"/>
+            <text x="50" y="55" text-anchor="middle" font-size="24">❤️</text>
+          </g>
+          <g transform="translate(200, 30)">
+            <text x="0" y="0" font-weight="bold" fill="#f87171" font-size="18">Vermelho = emoção</text>
+            <line x1="0" y1="10" x2="240" y2="10" stroke="#f87171" stroke-width="1" opacity="0.4"/>
+            <text x="0" y="35" font-size="12" fill="#fca5a5">• Reações viscerais</text>
+            <text x="0" y="55" font-size="12" fill="#fca5a5">• Frases curtas e diretas</text>
+            <text x="0" y="75" font-size="12" fill="#fca5a5">• Proibido escrever "porque"</text>
+            <text x="0" y="110" font-size="11" fill="#dc2626" font-style="italic">Máximo 8 frases.</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+          <h4 class="font-bold text-emerald-400 mb-4">✓ Frases válidas do Vermelho</h4>
+          <ul class="space-y-2 text-sm text-neutral-300">
+            <li class="italic">"Isso cheira a armadilha."</li>
+            <li class="italic">"Algo na opção 3 me anima."</li>
+            <li class="italic">"Cansaço só de ler o escopo."</li>
+            <li class="italic">"Não confio."</li>
+            <li class="italic">"Quero começar a Alt 2 ainda hoje."</li>
+          </ul>
+        </div>
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">✗ Frases inválidas (têm "porque")</h4>
+          <ul class="space-y-2 text-sm text-neutral-300">
+            <li class="italic">"Não gosto <strong>porque</strong> o prazo é curto."</li>
+            <li class="italic">"Tenho medo <strong>porque</strong> já vi dar errado."</li>
+            <li class="italic">"Acho ruim <strong>porque</strong> falta dado."</li>
+          </ul>
+          <p class="text-xs text-neutral-400 mt-3">A razão pertence ao Preto ou ao Branco. Aqui só entra a frase <strong>antes</strong> do "porque".</p>
+        </div>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Por que o Vermelho importa</h3>
+        <p class="text-neutral-300">Intuição é informação. Quando você bloqueia a emoção, ela não desaparece — vira ruído que polui os outros chapéus. Dar a ela uma fase própria <strong>libera</strong> o resto.</p>
+      </div>
+    </section>
+
+    <!-- RESUMO -->
+    <section class="mb-12">
+      <div class="bg-gradient-to-br from-emerald-900/40 via-dark-800 to-dark-800 rounded-xl border border-emerald-500/30 p-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">📝</span> Resumo do Módulo</h2>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Azul organiza</strong><span class="text-neutral-400"> - abre, fecha, define, sintetiza.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Branco só fatos</strong><span class="text-neutral-400"> - verificados, acreditados, lacunas.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Amarelo com argumento</strong><span class="text-neutral-400"> - cada benefício tem "por que é plausível".</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Preto verificável</strong><span class="text-neutral-400"> - riscos com probabilidade, impacto e razão.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Verde divergente</strong><span class="text-neutral-400"> - 5+ alternativas executivamente distintas.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Vermelho visceral</strong><span class="text-neutral-400"> - emoção pura, sem "porque".</span></div></div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+          <h3 class="font-semibold text-emerald-400 mb-2">Próximo Módulo:</h3>
+          <p class="text-neutral-300">1.3 - O sistema Anti-Âncora</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="modulo-1-1.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Módulo Anterior</a>
+          <a href="modulo-1-3.html" class="flex-1 text-center px-6 py-3 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-500 transition-colors">Próximo Módulo →</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>6 Chapéus + Anti-Âncora · Módulo 1.2 · 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+    const html = document.documentElement;
+    if (localStorage.getItem('theme') === 'light' || (!localStorage.getItem('theme') && !html.classList.contains('dark'))) { themeToggleDarkIcon.classList.remove('hidden'); html.classList.remove('dark'); } else { themeToggleLightIcon.classList.remove('hidden'); }
+    themeToggle.addEventListener('click', () => { themeToggleDarkIcon.classList.toggle('hidden'); themeToggleLightIcon.classList.toggle('hidden'); html.classList.toggle('dark'); localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light'); });
+  </script>
+</body>
+</html>
